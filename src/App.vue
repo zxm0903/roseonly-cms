@@ -24,7 +24,5 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-html,body,#app{
-  height:100%;
-}
+
 </style>
