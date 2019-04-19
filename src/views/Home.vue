@@ -1,9 +1,18 @@
 <template>
   <div class="home">
+    <!-- 左侧 -->
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <!-- 左边侧边栏 -->
+      <el-aside width="200px">
+        <h1>商城管理</h1>
+        <!-- 菜单 -->
+        <Meun></Meun>
+      </el-aside>
+      <!-- 右侧 -->
       <el-container>
+        <!-- 右侧头部 -->
         <el-header height="80px">Header</el-header>
+        <!-- 右侧内容展示 -->
         <el-main>Main</el-main>
       </el-container>
     </el-container>
@@ -12,29 +21,39 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+import Meun from '@/components/Meun.vue'
 
 export default {
-  name: 'home'
-}
+  name: "home",
+  components:{
+    Meun
+  }
+};
 </script>
 
 <style>
-  #home,#hemo{
-    height: 100%;
-  }
-  .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
-   .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-    height: 100%;
-  }
+el-container {
+  /* height: 600px; */
+}
+.el-header,
+.el-footer {
+  background-color: #b3c0d1;
+  color: #333;
+  text-align: center;
+  /* line-height: 60px; */
+}
+h1{
+  height: 80px;
+  line-height: 80px;
+  margin: 0;
+}
+.el-aside {
+  background-color: #262d3a;
+  color: #9dacc2;
+  text-align: center;
+  /* line-height: 80px; */
+  height: 100%;
+  margin: 0;
+}
 
 </style>
