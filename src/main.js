@@ -5,6 +5,8 @@ import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+// test
+
 Vue.use(ElementUI);
 //ajax 请求库
 import axios from 'axios'
