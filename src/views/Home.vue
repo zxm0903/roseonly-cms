@@ -1,17 +1,24 @@
 <template>
   <div class="home">
+    sadfg
     <!-- 左侧 -->
     <el-container>
+
       <!-- 左边侧边栏 -->
       <el-aside width="200px">
         <h1>商城管理</h1>
+
         <!-- 菜单 -->
         <Meun></Meun>
+
       </el-aside>
+
       <!-- 右侧 -->
       <el-container>
+
         <!-- 右侧头部 -->
         <el-header height="80px">Header</el-header>
+
         <!-- 右侧内容展示 -->
         <el-main>Main</el-main>
       </el-container>
@@ -32,9 +39,7 @@ export default {
 </script>
 
 <style>
-el-container {
-  /* height: 600px; */
-}
+
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
