@@ -1,19 +1,12 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Login from './views/Login.vue'
 
-Vue.use(Router)
 
-const LoginRouter = new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes: [
+const LoginRouter =  
       {
         path: '/login',
         name: 'login',
-        component: Login
+        component: () => import('@/views/Login.vue')
       }
-    ]
-  })
+    
+
 
   export default LoginRouter
