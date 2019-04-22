@@ -5,15 +5,20 @@
       <!-- 左边侧边栏 -->
       <el-aside width="200px">
         <h1>商城管理</h1>
+
         <!-- 菜单 -->
-        <Meun></Meun>
+        <Meuns/>
       </el-aside>
+
       <!-- 右侧 -->
       <el-container>
         <!-- 右侧头部 -->
         <el-header height="80px">Header</el-header>
+
         <!-- 右侧内容展示 -->
-        <el-main>Main</el-main>
+        <el-main>
+          <Addproduct/>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -21,39 +26,39 @@
 
 <script>
 // @ is an alias to /src
-import Meun from '@/components/Meun.vue'
+import Meuns from "@/components/Meun.vue";
+import Addproduct from "@/views/product/AddProduct.vue";
 
 export default {
   name: "home",
-  components:{
-    Meun
+  components: {
+    Meuns,
+    Addproduct
   }
 };
 </script>
 
 <style>
 el-container {
-  /* height: 600px; */
+  height: 100%;
 }
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
+.el-header {
+  /* background-color: #b3c0d1; */
   color: #333;
   text-align: center;
+  border-bottom: 1px solid #caced4;
   /* line-height: 60px; */
 }
-h1{
+h1 {
   height: 80px;
   line-height: 80px;
   margin: 0;
+  border-bottom: 1px solid #caced4;
 }
 .el-aside {
   background-color: #262d3a;
   color: #9dacc2;
   text-align: center;
-  /* line-height: 80px; */
-  height: 100%;
   margin: 0;
 }
-
 </style>
