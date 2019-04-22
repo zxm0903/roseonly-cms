@@ -17,9 +17,9 @@
           <i class="el-icon-menu"></i>产品
         </template>
         <el-menu-item-group>
-          <el-menu-item index="2-1"><router-link to="/">添加商品</router-link></el-menu-item>
-          <el-menu-item index="2-2"><router-link to="/">管理商品</router-link></el-menu-item>
-          <el-menu-item index="2-2"><router-link to="/">商品分类</router-link></el-menu-item>
+          <el-menu-item index="2-1"><router-link to="/addproduct">添加商品</router-link></el-menu-item>
+          <el-menu-item index="2-2"><router-link to="/productmanagement">管理商品</router-link></el-menu-item>
+          <el-menu-item index="2-2"><router-link to="/productcategories">商品分类</router-link></el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="3">

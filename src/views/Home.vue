@@ -5,7 +5,6 @@
       <!-- 左边侧边栏 -->
       <el-aside width="200px">
         <h1>商城管理</h1>
-
         <!-- 菜单 -->
         <Meuns/>
       </el-aside>
@@ -17,7 +16,7 @@
 
         <!-- 右侧内容展示 -->
         <el-main>
-          <Addproduct/>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -27,13 +26,12 @@
 <script>
 // @ is an alias to /src
 import Meuns from "@/components/Meun.vue";
-import Addproduct from "@/views/product/AddProduct.vue";
+
 
 export default {
   name: "home",
   components: {
-    Meuns,
-    Addproduct
+    Meuns
   }
 };
 </script>

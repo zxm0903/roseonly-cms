@@ -11,7 +11,26 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/Home')
+      component: () => import('@/views/Home'),
+      children:[
+        {
+          path:'/addproduct',
+          name:'addproduct',
+          component:() => import('@/views/product/AddProduct')
+        },
+        {
+          path:'/productmanagement',
+          name:'productmanagement',
+          component:() => import('@/views/product/ProductManagement')
+        },
+        {
+          path:'/productcategories',
+          name:'productcategories',
+          component:() => import('@/views/product/ProductCategories')
+        }
+      ]
     }
+    
+
   ]
 })
