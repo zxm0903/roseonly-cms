@@ -1,15 +1,23 @@
 <template>
   <div id="meuns">
     <el-menu :default-openeds="['1', '4']">
-        <el-submenu index="1">
+      <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-menu"></i>统计
         </template>
         <el-menu-item-group>
-          <el-menu-item index="1-1"><router-link to="/">商城概况</router-link></el-menu-item>
-          <el-menu-item index="1-2"><router-link to="/">交易分析</router-link></el-menu-item>
-          <el-menu-item index="1-3"><router-link to="/">商品分析</router-link></el-menu-item>
-          <el-menu-item index="1-4"><router-link to="/">产品统计</router-link></el-menu-item>
+          <el-menu-item index="1-1">
+            <router-link to="/ShopCondition">商城概况</router-link>
+          </el-menu-item>
+          <el-menu-item index="1-2">
+            <router-link to="/TransactionAnalysis">交易分析</router-link>
+          </el-menu-item>
+          <el-menu-item index="1-3">
+            <router-link to="/CommodityAnalysis">商品分析</router-link>
+          </el-menu-item>
+          <el-menu-item index="1-4">
+            <router-link to="/ProductAnalysis">产品统计</router-link>
+          </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="2">
@@ -36,9 +44,15 @@
           <i class="el-icon-menu"></i>会员
         </template>
         <el-menu-item-group>
-          <el-menu-item index="4-1"><router-link to="/">添加会员</router-link></el-menu-item>
-          <el-menu-item index="4-2"><router-link to="/">管理会员</router-link></el-menu-item>
-          <el-menu-item index="4-3"><router-link to="/">会员等级</router-link></el-menu-item>
+          <el-menu-item index="4-1">
+            <router-link to="/VipDetail">会员分析</router-link>
+          </el-menu-item>
+          <!-- <el-menu-item index="4-2">
+            <router-link to="/MAnagementVip">管理会员</router-link>
+          </el-menu-item>
+          <el-menu-item index="4-3">
+            <router-link to="/RankVip">会员等级</router-link>
+          </el-menu-item> -->
         </el-menu-item-group>
       </el-submenu>
     </el-menu>

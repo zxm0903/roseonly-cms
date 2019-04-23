@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 
 Vue.use(Router)
-
+ 
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -32,8 +32,43 @@ export default new Router({
           path:'/ordermanagement',
           name:'ordermanagement',
           component:() => import('@/views/order/OrderManagement')
+        },
+        {
+          path:'/CommodityAnalysis',
+          name:'CommodityAnalysis',
+          component:() => import('@/views/statistics/CommodityAnalysis')
+        },
+        {
+          path:'/ProductAnalysis',
+          name:'ProductAnalysis',
+          component:() => import('@/views/statistics/ProductAnalysis')
+        },
+        {
+          path:'/ShopCondition',
+          name:'ShopCondition',
+          component:() => import('@/views/statistics/ShopCondition')
+        },
+        {
+          path:'/TransactionAnalysis',
+          name:'TransactionAnalysis',
+          component:() => import('@/views/statistics/TransactionAnalysis')
+        },
+        {
+          path:'/VipDetail',
+          name:'VipDetail',
+          component:() => import('@/views/vip/VipDetail')
         }
       ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Login'),
+    },
+    {
+      path: '/findpass',
+      name: 'findpass',
+      component: () => import('@/views/Findpass'),
     }
     
 

@@ -12,7 +12,7 @@
       <!-- 右侧 -->
       <el-container>
         <!-- 右侧头部 -->
-        <el-header height="80px">Header</el-header>
+        <el-header height="80px"></el-header>
 
         <!-- 右侧内容展示 -->
         <el-main>
