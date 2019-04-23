@@ -27,7 +27,7 @@
           <i class="el-icon-menu"></i>订单
         </template>
         <el-menu-item-group>
-          <el-menu-item index="3-1"><router-link to="/">管理订单</router-link></el-menu-item>
+          <el-menu-item index="3-1"><router-link to="/ordermanagement">管理订单</router-link></el-menu-item>
           <el-menu-item index="3-2"><router-link to="/">快速打单</router-link></el-menu-item>
         </el-menu-item-group>
       </el-submenu>
@@ -51,8 +51,10 @@ export default {
 </script>
 <style>
   a{
+    
     text-decoration: none;
     color: #000;
+    padding:10px 30px;
   }
 </style>
 

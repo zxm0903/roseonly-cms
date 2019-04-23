@@ -27,6 +27,11 @@ export default new Router({
           path:'/productcategories',
           name:'productcategories',
           component:() => import('@/views/product/ProductCategories')
+        },
+        {
+          path:'/ordermanagement',
+          name:'ordermanagement',
+          component:() => import('@/views/order/OrderManagement')
         }
       ]
     }
