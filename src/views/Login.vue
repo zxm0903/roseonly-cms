@@ -5,70 +5,100 @@
         <div class="login_input_size">
           <!-- 手机号码 -->
           <div class="login_input_tel">
-            <input type="text" placeholder="请输入手机号码" name="username" id="username">
+            <input
+              type="text"
+              placeholder="请输入手机号码"
+              name="username"
+              id="username"
+              v-model="username"
+            >
             <div class="login_input_tel_86">+86</div>
           </div>
           <div class="warn_text" style="text-align:center"></div>
+          <!-- <TestCode></TestCode> -->
           <!-- 密码 -->
           <div class="login_input_password">
-            <input type="password" placeholder="请输入密码" name="userpass" id="userpass">
+            <input
+              type="password"
+              placeholder="请输入密码"
+              name="userpass"
+              id="userpass"
+              v-model="userpass"
+            >
           </div>
-          <!-- <div class="register_findpassword">
-                    
-                    <span class="find_possword"><a href="/findPass">忘记密码</a></span>
-          </div>-->
+          <div class="register_findpassword">
+            <span class="find_possword">
+              <a href="/findPass">忘记密码</a>
+            </span>
+          </div>
           <div class="loginBtn">
-            <input type="button" value="登录" id="loginBtn">
+            <input type="button" value="登录" id="loginBtn" @click="login">
           </div>
-          <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h6 class="modal-title" id="exampleModalLabel"></h6>
-                            </div>
-                            <div class="modal-body">
-                                <p>登录成功，即将跳转到主页</p>
-                            </div>
-                        </div>
-                    </div>
-          </div>-->
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+// import TestCode from "@/components/TestCode";
 export default {
-    name:'login'
+  name: "login",
+
+  data() {
+    return {
+      username: "",
+      userpass: ""
+    }
+  },
+  methods: {
+    login() {
+      var that = this;
+      this.axios
+        .post("/login", {
+          username: that.username,
+          userpass: that.userpass
+        })
+        .then(res => {
+          if (res.data.state == 200) {
+            // 保存登录状态
+            localStorage.setItem("token", res.data.token);
+            // 使用 this.$router 对象
+            this.$router.push("/home")
+          } else {
+            // 模态框
+            alert("账号或者密码错误")
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          alert("登录失败")
+        });
+    }
+  }
 };
 </script>
 
 <style  scoped>
-* {
-  margin: 0;
-  padding: 0;
-}
 /* 登录框 */
 .login {
-  background: url(../images/login.jpg) center no-repeat;
+  background-color: antiquewhite;
   width: 100%;
-  height: 600px;
+  height: 800px;
   position: relative;
 }
 
 .login_input {
-  height: 400px;
+  height: 355px;
   width: 300px;
   border: 2px solid rgba(100, 15, 15, 0.808);
   position: absolute;
   right: 100px;
   top: 20px;
+  background: rgba(159, 41, 41, 0.596);
 }
 /* 内框间隔 */
 .login_input_size {
   padding: 25px;
-  background: rgba(150, 78, 78, 0.596);
 }
 /* 地址选择框 */
 .selectpicker {
@@ -103,7 +133,6 @@ export default {
 /* 密码框 */
 .login_input_password {
   width: 100%;
-  /* margin: 30px 30px 0 0; */
   height: 50px;
 }
 #userpass {
@@ -125,25 +154,26 @@ export default {
   background-color: rgba(80, 11, 11, 0.719);
   border: none;
 }
- /* 快速注册忘记密码 */
- /*.register_findpassword{
-     margin:10px 0;
+/* 快速注册忘记密码 */
+.register_findpassword {
+  margin: 10px 0;
 
-     font-size: 16px;
- }
- .register_findpassword a{
-     color: rgb(232, 241, 241);
- }
- .find_possword{
-     margin-left: 100px;
-     font-size: 16px;
- }
- .find_possword a{
-     color: rgb(232, 241, 241);
- }*/
+  font-size: 16px;
+}
+.register_findpassword a {
+  color: rgb(232, 241, 241);
+}
+.find_possword {
+  margin-left: 100px;
+  font-size: 16px;
+}
+.find_possword a {
+  color: rgb(232, 241, 241);
+}
 /* 提示语 */
 .verifyText {
   color: red;
   font-size: 12px;
 }
+
 </style>

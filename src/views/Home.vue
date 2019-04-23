@@ -13,11 +13,11 @@
       <!-- 右侧 -->
       <el-container>
         <!-- 右侧头部 -->
-        <el-header height="80px">Header</el-header>
+        <el-header height="80px"></el-header>
 
         <!-- 右侧内容展示 -->
         <el-main>
-          <Addproduct/>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -27,13 +27,13 @@
 <script>
 // @ is an alias to /src
 import Meuns from "@/components/Meun.vue";
-import Addproduct from "@/views/product/AddProduct.vue";
+
 
 export default {
   name: "home",
   components: {
-    Meuns,
-    Addproduct
+    Meuns
+   
   }
 };
 </script>

@@ -11,7 +11,45 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/Home')
+      component: () => import('@/views/Home'),
+      children: [
+        {
+          path: '/ShopCondition',
+          name: 'ShopCondition',
+          component: () => import('@/views/statistics/ShopCondition.vue')
+        },
+        {
+          path: '/ProductAnalysis',
+          name: 'ProductAnalysis',
+          component: () => import('@/views/statistics/ProductAnalysis.vue')
+        },
+        {
+          path: '/CommodityAnalysis',
+          name: 'CommodityAnalysis',
+          component: () => import('@/views/statistics/CommodityAnalysis.vue')
+        },
+        {
+          path: '/TransactionAnalysis',
+          name: 'TransactionAnalysis',
+          component: () => import('@/views/statistics/TransactionAnalysis.vue')
+        },
+        {
+          path: '/VipDetail',
+          name: 'VipDetail',
+          component: () => import('@/views/vip/VipDetail.vue')
+        }
+       
+      ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Login')
+    },
+    {
+      path: '/findpass',
+      name: 'findpass',
+      component: () => import('@/views/Findpass')
     }
   ]
 })
