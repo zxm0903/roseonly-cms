@@ -5,7 +5,6 @@
       <!-- 左边侧边栏 -->
       <el-aside width="200px">
         <h1>商城管理</h1>
-
         <!-- 菜单 -->
         <Meuns/>
       </el-aside>
@@ -33,7 +32,6 @@ export default {
   name: "home",
   components: {
     Meuns
-   
   }
 };
 </script>

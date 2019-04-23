@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 
 Vue.use(Router)
-
+ 
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -12,44 +12,60 @@ export default new Router({
       path: '/',
       name: 'home',
       component: () => import('@/views/Home'),
-      children: [
+      children:[
         {
-          path: '/ShopCondition',
-          name: 'ShopCondition',
-          component: () => import('@/views/statistics/ShopCondition.vue')
+          path:'/addproduct',
+          name:'addproduct',
+          component:() => import('@/views/product/AddProduct')
         },
         {
-          path: '/ProductAnalysis',
-          name: 'ProductAnalysis',
-          component: () => import('@/views/statistics/ProductAnalysis.vue')
+          path:'/productmanagement',
+          name:'productmanagement',
+          component:() => import('@/views/product/ProductManagement')
         },
         {
-          path: '/CommodityAnalysis',
-          name: 'CommodityAnalysis',
-          component: () => import('@/views/statistics/CommodityAnalysis.vue')
+          path:'/productcategories',
+          name:'productcategories',
+          component:() => import('@/views/product/ProductCategories')
         },
         {
-          path: '/TransactionAnalysis',
-          name: 'TransactionAnalysis',
-          component: () => import('@/views/statistics/TransactionAnalysis.vue')
+          path:'/CommodityAnalysis',
+          name:'CommodityAnalysis',
+          component:() => import('@/views/statistics/CommodityAnalysis')
         },
         {
-          path: '/VipDetail',
-          name: 'VipDetail',
-          component: () => import('@/views/vip/VipDetail.vue')
+          path:'/ProductAnalysis',
+          name:'ProductAnalysis',
+          component:() => import('@/views/statistics/ProductAnalysis')
+        },
+        {
+          path:'/ShopCondition',
+          name:'ShopCondition',
+          component:() => import('@/views/statistics/ShopCondition')
+        },
+        {
+          path:'/TransactionAnalysis',
+          name:'TransactionAnalysis',
+          component:() => import('@/views/statistics/TransactionAnalysis')
+        },
+        {
+          path:'/VipDetail',
+          name:'VipDetail',
+          component:() => import('@/views/vip/VipDetail')
         }
-       
       ]
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/Login')
+      component: () => import('@/views/Login'),
     },
     {
       path: '/findpass',
       name: 'findpass',
-      component: () => import('@/views/Findpass')
+      component: () => import('@/views/Findpass'),
     }
+    
+
   ]
 })

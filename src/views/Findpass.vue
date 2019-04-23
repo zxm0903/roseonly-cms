@@ -24,7 +24,7 @@
           <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button  type="primary" @click="submitForm('ruleForm') " class="btn">提交</el-button>
+          <el-button plain  type="primary" @click="submitForm('ruleForm')"  class="btn">提交</el-button>
           <el-button @click="resetForm('ruleForm')" class="btn">重置</el-button>
         </el-form-item>
       </el-form>
@@ -85,7 +85,8 @@ export default {
       console.log(this.$refs[formName].validate);
       this.$refs[formName].validate(valid => {
         if (valid) {
-         alert('submit')
+        //  alert('submit')
+       this.open()
         } else {
           console.log("error submit!!");
           return false;
@@ -98,7 +99,16 @@ export default {
     getMobileVerify() {
       console.log(this.ruleForm.pass);
       console.log("获取手机验证码");
-    }
+    },
+     open() {
+        const h = this.$createElement;
+
+        this.$notify({
+          title: '标题名称',
+          message: h('i', { style: 'color: teal'}, '这是提示')
+        });
+      },
+
     
   }
 };
