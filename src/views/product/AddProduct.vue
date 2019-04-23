@@ -8,10 +8,21 @@
           </el-form-item>
 
           <el-form-item label="产品分类">
-            <el-select v-model="form.region" placeholder="请选择商品分类">
+            <!-- <el-select v-model="form.region" placeholder="请选择商品分类">
               <el-option label="分类一" value="shanghai"></el-option>
               <el-option label="分类二" value="beijing"></el-option>
-            </el-select>
+            </el-select> -->
+            <CateoriesSelect></CateoriesSelect>
+          </el-form-item>
+
+          <el-form-item label="产品颜色">
+            <el-input v-model="form.color"></el-input>
+          </el-form-item>
+          <el-form-item label="产品价格">
+            <el-input v-model="form.price"></el-input>
+          </el-form-item>
+          <el-form-item label="产品库存">
+            <el-input v-model="form.num"></el-input>
           </el-form-item>
         </el-form>
       </el-col>
@@ -23,16 +34,21 @@
 </template>
 <script>
 import Upload from "@/views/product/components/Upload";
+import CateoriesSelect from "@/views/product/components/CategoriesSelect"
 export default {
   name: "addproduct",
   components: {
-    Upload
+    Upload,
+    CateoriesSelect
   },
   data() {
     return {
       form: {
         name: "",
-        region: ""
+        region: "",
+        color:'红色',
+        price:'',
+        num:''
       }
     };
   }
