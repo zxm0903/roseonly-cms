@@ -28,6 +28,8 @@
           <el-button @click="resetForm('ruleForm')" class="btn">重置</el-button>
         </el-form-item>
       </el-form>
+    </div>
+  </div>
    
 </template>
 
@@ -74,10 +76,8 @@ export default {
         pass: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
         verify: [{ validator: mobileVerify, trigger: "blur" }]
-      },
-      state: {
-        open: 1
       }
+    
     };
   },
   methods: {
@@ -85,7 +85,7 @@ export default {
       console.log(this.$refs[formName].validate);
       this.$refs[formName].validate(valid => {
         if (valid) {
-         open3()
+         alert('submit')
         } else {
           console.log("error submit!!");
           return false;
