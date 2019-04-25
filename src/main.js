@@ -8,6 +8,10 @@ import ElementUI from 'element-ui'
 import '@/assets/index.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import echarts from 'echarts'
+
+Vue.prototype.$echarts = echarts
+
 
 Vue.use(ElementUI);
 //ajax 请求库
@@ -20,7 +24,7 @@ axios.defaults.baseURL = 'http://172.16.7.81:8080'
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 
-
+ 
 Vue.config.productionTip = false
 
 new Vue({
