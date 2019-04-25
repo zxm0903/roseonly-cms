@@ -6,13 +6,7 @@
     >
       <el-table-column type="expand">
         <!-- <template slot-scope="props"> -->
-        <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="address" label></el-table-column>
-          <el-table-column prop="name" label="产品名称" width="180"></el-table-column>
-          <el-table-column prop="name" label="价格" width="180"></el-table-column>
-          <el-table-column prop="address" label="数量"></el-table-column>
-          <el-table-column prop="address" label="小计"></el-table-column>
-        </el-table>
+       <GoodList :good="tableData"></GoodList>
 
         <!-- {{props.row.name[0]}} -->
         <!-- {{props.row.name[1]}} -->
@@ -23,7 +17,7 @@
       <el-table-column label="订单编号" prop="id"></el-table-column>
 
       <el-table-column label="买家/联系方式" prop="buy"></el-table-column>
-      <el-table-column label="实付金额" prop="price"></el-table-column>
+      <el-table-column label="实付金额（元）" prop="price"></el-table-column>
       <el-table-column label="订单状态" prop="orderstate"></el-table-column>
       <el-table-column align="right">
         <template slot="header">
@@ -31,30 +25,62 @@
         </template>
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看订单</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">发货</el-button>
+          <el-button size="mini" v-if="scope.row.orderstate == 1" type="danger" @click="consignment">发货</el-button>
           <el-button size="mini" type="success">打印订单</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <Consignment :dialog="isconsignment"></Consignment>
   </div>
 </template>
 <script>
+import GoodList from '@/views/order/components/GoodList'
+import Consignment from '@/views/order/components/Consignment'
 export default {
   name: "ordermanagement",
+  components:{
+    GoodList,
+    Consignment
+  },
   data() {
     return {
+      isconsignment:false,
       tableData: [
         {
           name: ["鲜花", "ghj"],
           id: "12345",
           num: "12/2",
           buy: "zxm/15882796070",
+          url:'http://pic.58pic.com/58pic/15/11/51/20E58PICNs4_1024.jpg',
           price: "24",
           orderstate: 1
+        },
+        {
+          name: ["鲜花", "ghj"],
+          id: "12345",
+          num: "12/2",
+          buy: "zxm/15882796070",
+          url:'http://pic.58pic.com/58pic/15/11/51/20E58PICNs4_1024.jpg',
+          price: "24",
+          orderstate: 1
+        },
+        {
+          name: ["鲜花", "ghj"],
+          id: "12345",
+          num: "12/2",
+          buy: "zxm/15882796070",
+          url:'http://pic.58pic.com/58pic/15/11/51/20E58PICNs4_1024.jpg',
+          price: "24",
+          orderstate: 2
         }
       ],
       search: ""
     };
+  },
+  methods:{
+    consignment() {
+      this.isconsignment = true;
+    }
   }
 };
 </script>
