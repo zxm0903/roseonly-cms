@@ -16,9 +16,12 @@ Vue.prototype.$echarts = echarts
 Vue.use(ElementUI);
 //ajax 请求库
 import axios from 'axios'
-Vue.prototype.$http = axios
-axios.defaults.baseURL = '192.168.2.220:8081'
-
+Vue.prototype.axios = axios
+axios.defaults.baseURL = 'http://172.16.7.81:8080'
+// axios.defaults.headers = {'X-Custom-Header': 'foobar'}
+// axios.defaults.headers.common['Authorization'] = 'Bearer ';
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 
  

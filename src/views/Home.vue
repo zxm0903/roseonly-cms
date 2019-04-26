@@ -32,6 +32,9 @@ export default {
   name: "home",
   components: {
     Meuns
+  },
+  methods:{
+    
   }
 };
 </script>
