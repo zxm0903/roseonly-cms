@@ -93,18 +93,7 @@ export default {
         console.log('请求失败',err,)
       })
     },
-    onget(){
-      this.axios.get('/goods/classify/list',{
-        admin:'',
-        
-      })
-      .then((res) => {
-        console.log('请求成功',res)
-      })
-      .catch((err) => {
-        console.log('请求失败',err,)
-      })
-    }
+ 
   }
 };
 </script>

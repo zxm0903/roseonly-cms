@@ -39,6 +39,16 @@ export default {
         }
       ]
     };
+  },
+  created() {
+    this.axios
+      .get("/")
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>
