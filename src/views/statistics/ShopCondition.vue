@@ -1,6 +1,6 @@
 <template>
   <div id="shopCondition">
-    <div class="choose clear">
+    <div class="choose date clear">
       <div class="left">
         <span>快速查看</span>
         <input type="button" value="今日" @click="getToday">
@@ -61,6 +61,8 @@ export default {
       var mydate = new Date(),
         time = mydate.getDate();
       console.log("shijian", time);
+      // console.log(this.value)
+      // var start = this.strFormatDate($.trim($("#startTime").val()),0);//开始时间
     },
     getYearstoday() {},
     getSeven() {},
@@ -107,6 +109,10 @@ export default {
 }
 .choose {
   min-width: 1000px;
+}
+.date{
+  position: relative;
+  z-index: 999;
 }
 .left {
   float: left;

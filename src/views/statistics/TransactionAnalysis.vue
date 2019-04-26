@@ -1,6 +1,6 @@
 <template>
-  <div id="shopCondition">
-    <div class="choose clear">
+  <div id="transactionAnalysis">
+    <div class="choose date clear">
       <div class="left">
         <span>快速查看</span>
         <input type="button" value="今日" @click="getToday">
@@ -70,25 +70,55 @@ export default {
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       // 绘制图表
       myChart.setOption({
-        title: { text: "商城概况" },
+        title: { text: "交易分析" },
         tooltip: {
           // trigger: "axis"
         },
-        xAxis: {
-          type: "category",
-          // show:ture,
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        },
-        yAxis: {
-          type: "value",
-          data: [100, 200, 300, 400, 500, 600]
-        },
+         legend: {
+        data: ['访客','下单','付款']
+    },
         series: [
-          {
-            name: "金额",
-            type: "line",
-            data: [500, 200, 360, 110, 110, 120]
-          }
+           {
+            name:'漏斗图',
+            type:'funnel',
+            left: '10%',
+            top: 60,
+            //x2: 80,
+            bottom: 60,
+            width: '80%',
+            // height: {totalHeight} - y - y2,
+            min: 0,
+            max: 100,
+            minSize: '0%',
+            maxSize: '100%',
+            sort: 'descending',
+            gap: 2,
+            label: {
+                show: true,
+                position: 'inside'
+            },
+            labelLine: {
+                length: 10,
+                lineStyle: {
+                    width: 1,
+                    type: 'solid'
+                }
+            },
+            itemStyle: {
+                borderColor: '#fff',
+                borderWidth: 1
+            },
+            emphasis: {
+                label: {
+                    fontSize: 20
+                }
+            },
+            data: [
+                {value: 20, name: '访客'},
+                {value: 80, name: '下单'},
+                {value: 100, name: '付款'}
+            ]
+        }
         ]
       });
     }
@@ -107,6 +137,10 @@ export default {
 }
 .choose {
   min-width: 1000px;
+}
+.date{
+  position: relative;
+  z-index:999;
 }
 .left {
   float: left;

@@ -54,24 +54,26 @@ export default {
     login() {
       var that = this;
       this.axios
-        .post("/login", {
-          username: that.username,
-          userpass: that.userpass
+        .post("/users/login", {
+          cellphone: that.username,
+          passwrod: that.userpass,
+          identity:1
         })
-        .then(res => {
-          if (res.data.state == 200) {
-            // 保存登录状态
-            localStorage.setItem("token", res.data.token);
-            // 使用 this.$router 对象
-            this.$router.push("/home")
-          } else {
-            // 模态框
-            alert("账号或者密码错误")
-          }
+        .then((res) => {
+          console.log(res)
+          // if (res.data.state == 200) {
+          //   // 保存登录状态
+          //   localStorage.setItem("token", res.data.token);
+          //   // 使用 this.$router 对象
+          //   this.$router.push('/')
+          // } else {
+          //   // 模态框
+          //   alert("账号或者密码错误")
+          // }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
-          alert("登录失败")
+          // alert("登录失败")
         });
     }
   }

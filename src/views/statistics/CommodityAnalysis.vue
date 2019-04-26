@@ -1,6 +1,6 @@
 <template>
   <div id="shopCondition">
-    <div class="choose clear">
+    <div class="choose date clear">
       <div class="left">
         <span>快速查看</span>
         <input type="button" value="今日" @click="getToday">
@@ -9,14 +9,16 @@
         <input type="button" value="最近30日" @click="getThirty">
       </div>
       <div class="right">
-        <span style="margin-right:15px">选择日期</span>
-        <el-date-picker
-          v-model="value"
-          type="daterange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          :default-time="['00:00:00', '23:59:59']"
-        ></el-date-picker>
+        <div>
+          <span style="margin-right:15px">选择日期</span>
+          <el-date-picker
+            v-model="value"
+            type="daterange"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :default-time="['00:00:00', '23:59:59']"
+          ></el-date-picker>
+        </div>
       </div>
     </div>
 
@@ -53,7 +55,7 @@ export default {
     };
   },
   mounted() {
-    this.drawLine();
+    this.drawLine()
   },
   methods: {
     getToday() {
@@ -61,6 +63,8 @@ export default {
       var mydate = new Date(),
         time = mydate.getDate();
       console.log("shijian", time);
+      // console.log(this.value)
+      // var start = this.strFormatDate($.trim($("#startTime").val()),0);//开始时间
     },
     getYearstoday() {},
     getSeven() {},
@@ -108,10 +112,14 @@ export default {
 .choose {
   min-width: 1000px;
 }
+.date{
+  position: relative;
+  z-index: 999;
+}
 .left {
   float: left;
 }
-.right{
+.right {
   float: right;
 }
 .left > input {
@@ -125,8 +133,8 @@ export default {
   background: rgb(146, 144, 144);
   cursor: pointer;
 }
-.payCondition{
-float: left;
+.payCondition {
+  float: left;
 }
 .detail {
   width: 200px;
