@@ -42,7 +42,7 @@
     <!-- 折线图 -->
 
     <div>
-      <div id="myChart" :style="{width: '100%', height: '400px'}"></div>
+      <div v-show="ok" id="myChart" :style="{width: '100%', height: '400px'}"></div>
     </div>
   </div>
 </template>
@@ -50,7 +50,8 @@
 export default {
   data() {
     return {
-      value: ""
+      value: "",
+      ok:false
     };
   },
   mounted() {
