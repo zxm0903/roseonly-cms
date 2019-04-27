@@ -40,14 +40,48 @@ export default {
       ]
     };
   },
+  methods: {
+    buildTree(list) {
+      let temp = {};
+      let tree = {};
+      for (let i in list) {
+        temp[list[i].id] = list[i];
+      }
+      for (let i in temp) {
+        if (temp[i].parent_id) {
+          if (!temp[temp[i].parent_id].children) {
+            temp[temp[i].parent_id].children = new Object();
+          }
+          temp[temp[i].parent_id].children[temp[i].id] = temp[i];
+        } else {
+          tree[temp[i].id] = temp[i];
+        }
+      }
+      return tree;
+    }
+  },
   created() {
+    let that = this;
     this.axios
-      .get("/")
+      .get("/goods/storage")
       .then(res => {
-        console.log(res);
+        console.log("请求成功", res.data.data.goodsTypeList);
+        let classlist = res.data.data.goodsTypeList;
+        let list = [];
+        classlist.map((e, i) => {
+         
+            list.push({
+              value: e.goodsTypeId,
+              label: e.goodsTypeName
+            });
+            
+          
+        });
+        that.buildTree(list);
+        that.classlist = list;
       })
       .catch(err => {
-        console.log(err);
+        console.log("请求失败", err);
       });
   }
 };

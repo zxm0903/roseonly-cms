@@ -48,19 +48,27 @@ export default {
     return {
       username: "",
       userpass: ""
-    }
+    };
   },
   methods: {
     login() {
       var that = this;
       this.axios
-        .post("/users/login", {
-          cellphone: that.username,
-          passwrod: that.userpass,
-          identity:1
-        })
-        .then((res) => {
-          console.log(res)
+        .post(
+          "/users/login",
+          {
+            cellphone: that.username,
+            passwrod: that.userpass,
+            identity: 1
+          },
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then(res => {
+          console.log(res);
           // if (res.data.state == 200) {
           //   // 保存登录状态
           //   localStorage.setItem("token", res.data.token);
@@ -71,8 +79,8 @@ export default {
           //   alert("账号或者密码错误")
           // }
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(err => {
+          console.log(err);
           // alert("登录失败")
         });
     }
@@ -177,5 +185,4 @@ export default {
   color: red;
   font-size: 12px;
 }
-
 </style>
