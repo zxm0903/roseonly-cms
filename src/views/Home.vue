@@ -20,18 +20,21 @@
         </el-main>
       </el-container>
     </el-container>
+    <Inform />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Meuns from "@/components/Meun.vue";
+import Inform from "@/components/Inform.vue";
 
 
 export default {
   name: "home",
   components: {
-    Meuns
+    Meuns,
+    Inform
   },
   methods:{
     

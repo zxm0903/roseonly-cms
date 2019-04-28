@@ -22,6 +22,9 @@ axios.defaults.baseURL = 'http://172.16.7.76:8080'
 // axios.defaults.headers.common['Authorization'] = 'Bearer ';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // axios.defaults.headers['Content-Type'] = 'c';
+
+
+// 引入qs
 import qs from 'qs'
 axios.interceptors.request.use(config => {
   if(config.type == 'formData' || config.method != 'post'){
@@ -35,7 +38,10 @@ axios.interceptors.request.use(config => {
   return Promise.reject(err);
 })
 
- 
+// 引入打印
+import Print from 'vue-print-nb'
+Vue.use(Print)
+
 Vue.config.productionTip = false
 
 new Vue({
