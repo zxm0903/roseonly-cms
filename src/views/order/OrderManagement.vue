@@ -24,13 +24,13 @@
           <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看订单</el-button>
+          <el-button size="mini" @click="handleEdit(scope.row)">查看订单</el-button>
           <el-button size="mini" v-if="scope.row.orderstate == 1" type="danger" @click="consignment">发货</el-button>
-          <el-button size="mini" type="success">打印订单</el-button>
+          <!-- <el-button size="mini" type="success">打印订单</el-button> -->
         </template>
       </el-table-column>
     </el-table>
-    <orderdetail />
+    <orderdetail :isdetail="isdetail" />
     <Consignment :dialog="dialog"></Consignment>
   </div>
 </template>
@@ -48,6 +48,10 @@ export default {
   data() {
     return {
       dialog:false,
+      isdetail:{
+        bool:false,
+        row:''
+      },
       tableData: [
         {
           name: ["鲜花", "ghj"],
@@ -83,6 +87,10 @@ export default {
   methods:{
     consignment() {
       this.dialog = true;
+    },
+    handleEdit(row){
+      this.isdetail.bool = true
+      this.isdetail.row = row
     }
   }
 };

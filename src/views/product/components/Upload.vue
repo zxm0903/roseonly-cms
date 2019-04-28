@@ -3,7 +3,7 @@
     <el-upload
       ref="upload"
       list-type="picture-card"
-      action=""
+      action
       :http-request="imgupload"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove"
@@ -48,27 +48,34 @@ export default {
     },
     imgupload(a) {
       let config = {
-        headers: {
-          "Content-Type":"multipart/form-data"
-        }
+        headers: { "Content-Type": "multipart/form-data" }
       };
-      console.log("456", a.file);
+      // console.log("456", a.file);
       // var imgFile = e.target.files[0];
-      var formdate = new FormData();
-      console.log(formdate)
-      formdate.append('file', a.file);
+      let formdate = new FormData();
+
+      formdate.append("file", a.file);
+      // console.log(formdate.get("file"));
+
       // formdate.append("picName", a.file.name);
-      // formdate.append("picCode", 1);
+      // formdate.append("picCode", "1");
       // formdate.append("picLinkUrl", "");
-      console.log(formdate)
+
+      console.log(a.file.name);
+
       this.axios
-        .post("/goods/picture/upload",formdate,config)
+        .post("/goods/picture/upload", formdate,config)
         .then(res => {
           console.log(res);
         })
         .catch(err => {
-          console.log("1110",formdate, err);
+          console.log("1110", formdate, err);
         });
+
+      
+      
+
+     
     }
   }
 };

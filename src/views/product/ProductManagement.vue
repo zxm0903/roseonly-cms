@@ -4,9 +4,9 @@
       :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
       style="width: 100%"
     >
-      <el-table-column label="录入时间" prop="date"></el-table-column>
-      <el-table-column label="产品名称" prop="name"></el-table-column>
-      <el-table-column label="分类名称" prop="address"></el-table-column>
+      <el-table-column label="录入时间" prop="groudingTime"></el-table-column>
+      <el-table-column label="产品名称" prop="goodsName"></el-table-column>
+      <el-table-column label="分类名称" prop="goodsType.goodsTypeName"></el-table-column>
       <el-table-column align="right">
         <template slot="header">
           <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>
@@ -73,10 +73,10 @@ export default {
   created() {
     let that = this;
     this.axios
-      .get("/goods/all/list")
+      .get("/goods/search/all/list")
       .then(res => {
-        console.log("请求成功", res.data);
-        that.tableData = res.data;
+        console.log("请求成功", res);
+        that.tableData = res.data.data.data;
       })
       .catch(err => {
         console.log("请求失败", err);
