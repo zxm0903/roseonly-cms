@@ -17,22 +17,22 @@ Vue.use(ElementUI);
 //ajax 请求库
 import axios from 'axios'
 Vue.prototype.axios = axios
+// Vue.prototype.$http = axios
 axios.defaults.baseURL = 'http://172.16.7.81:8080'
 // axios.defaults.headers = {'X-Custom-Header': 'foobar'}
 // axios.defaults.headers.common['Authorization'] = 'Bearer ';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // axios.defaults.headers['Content-Type'] = 'c';
 
-
 // 引入qs
 import qs from 'qs'
 axios.interceptors.request.use(config => {
-  if(config.type == 'formData' || config.method != 'post'){
-      return config
+  if (config.type == 'formData' || config.method != 'post') {
+    return config
   }
   config.data = qs.stringify(config.data)
   return config
-  }, (err) =>{
+}, (err) => {
   return Promise.reject(err);
 })
 
