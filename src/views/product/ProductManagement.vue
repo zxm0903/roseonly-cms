@@ -13,7 +13,7 @@
         </template>
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑产品</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index,scope.row)">删除</el-button>
           <el-button size="mini" type="success">预览</el-button>
         </template>
       </el-table-column>
@@ -38,7 +38,7 @@ export default {
       search: "",
       isedit:{
         bool:false,
-        id:''
+        row:''
       }
     };
   },
@@ -50,10 +50,10 @@ export default {
       console.log(row);
       this.isedit = {
         bool:true,
-        id:row.goodsId || 0
+        row:row
       }
     },
-    handleDelete(row) {
+    handleDelete(index,row) {
       console.log(row);
 
       let that = this;
@@ -62,8 +62,9 @@ export default {
           goodsIds: row.goodsId
         })
         .then(res => {
-          console.log("请求成功", res.data);
-          that.tableData = res.data;
+          console.log("请求成功", res);
+          // that.tableData = res.data;
+          // that.tableData.splice(index,1)
         })
         .catch(err => {
           console.log("请求失败", err);

@@ -1,7 +1,7 @@
 <template>
   <!-- <div id="editgoods"> -->
     <el-dialog title="编辑" :visible.sync="isedit.bool" width="80%" :before-close="handleClose">
-      <GoodsForm></GoodsForm>
+      <GoodsForm :row="isedit.row"></GoodsForm>
     </el-dialog>
   <!-- </div> -->
 </template>
