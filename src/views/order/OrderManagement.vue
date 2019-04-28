@@ -30,8 +30,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <orderdetail />
-    <Consignment :dialog="isconsignment"></Consignment>
+    <Consignment :dialog="dialog"></Consignment>
   </div>
 </template>
 <script>
@@ -47,7 +46,7 @@ export default {
   },
   data() {
     return {
-      isconsignment:false,
+      dialog:false,
       tableData: [
         {
           name: ["鲜花", "ghj"],
@@ -82,7 +81,7 @@ export default {
   },
   methods:{
     consignment() {
-      this.isconsignment = true;
+      this.dialog = true;
     }
   }
 };

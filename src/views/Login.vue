@@ -48,7 +48,7 @@ export default {
     return {
       username: "",
       userpass: ""
-    }
+    };
   },
   methods: {
     login() {
@@ -71,8 +71,8 @@ export default {
             alert("账号或者密码错误")
           }
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(err => {
+          console.log(err);
           // alert("登录失败")
         });
     }
@@ -177,5 +177,4 @@ export default {
   color: red;
   font-size: 12px;
 }
-
 </style>

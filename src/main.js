@@ -9,7 +9,7 @@ import '@/assets/index.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import echarts from 'echarts'
-
+import qs from 'qs'
 Vue.prototype.$echarts = echarts
 
 
@@ -17,7 +17,7 @@ Vue.use(ElementUI);
 //ajax 请求库
 import axios from 'axios'
 Vue.prototype.axios = axios
-axios.defaults.baseURL = 'http://172.16.7.76:8080'
+axios.defaults.baseURL = 'http://172.16.7.81:8080'
 // axios.defaults.headers = {'X-Custom-Header': 'foobar'}
 // axios.defaults.headers.common['Authorization'] = 'Bearer ';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -30,9 +30,7 @@ axios.interceptors.request.use(config => {
   if(config.type == 'formData' || config.method != 'post'){
       return config
   }
-  config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
   config.data = qs.stringify(config.data)
-  console.log(config);
   return config
   }, (err) =>{
   return Promise.reject(err);

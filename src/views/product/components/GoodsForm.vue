@@ -1,5 +1,5 @@
 <template>
-  <div id="addproduct">
+  <div id="goodsform">
     <el-row :gutter="10">
       <el-col :xs="24" :sm="8">
         <el-form label-position="left" ref="form" :model="form" label-width="80px">
@@ -28,75 +28,84 @@
             <el-input v-model="form.num"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
+            <el-button type="primary" @click="onSubmit">修改</el-button>
             <!-- <el-button>取消</el-button> -->
           </el-form-item>
-          <!-- <el-form-item>
-            <el-button type="primary" @click="onget">GET</el-button>
-            <el-button>取消</el-button>
-          </el-form-item> -->
+          <!-- <el-form-item v-if="location == '/productmanagement'">
+            <el-button type="primary" @click="onEdit">edit</el-button> -->
+            <!-- <el-button>取消</el-button> -->
+          <!-- </el-form-item> -->
         </el-form>
       </el-col>
       <el-col :xs="24" :sm="16">
-        <Upload></Upload>
+        <!-- <Upload></Upload> -->
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import Upload from "@/views/product/components/Upload"
-import CateoriesSelect from "@/views/product/components/CategoriesSelect"
-// import axios from 
+// import Upload from "@/views/product/components/Upload";
+import CateoriesSelect from "@/views/product/components/CategoriesSelect";
+// import axios from
 export default {
-  name: "addproduct",
+  name: "goodsform",
   components: {
-    Upload,
+    // Upload,
     CateoriesSelect
   },
   data() {
     return {
       form: {
         name: "",
-        region: '2',
+        region: "2",
         color: "",
         price: "",
-        num: '',
-        detail:'',
-        specs:'80cm'
+        num: "",
+        detail: "",
+        specs: "80cm"
       }
     };
   },
-  methods:{
+  methods: {
     /*
-    *提交商品信息
-    */
-    onSubmit(){
-      var that = this.form
-      console.log(that)
-      this.axios.post('/goods/storage',{
-
-
-          goodsTotal:that.num,
-          goodsColor:that.color,
-          goodsName:that.name,
-          goodsPrice:that.price,
-          goodsDetail:that.detail,
-          goodsSpecs:that.specs,
-          goodsTypeId:that.region
-
-      })
-      .then((res) => {
-        console.log('请求成功',res)
-        console.log(that.name)
-      })
-      .catch((err) => {
-        console.log('请求失败',err,)
-      })
+     *提交商品信息
+     */
+    onSubmit() {
+      var that = this.form;
+      console.log(that);
+      this.axios
+        .post("/goods/storage", {
+          goodsTotal: that.num,
+          goodsColor: that.color,
+          goodsName: that.name,
+          goodsPrice: that.price,
+          goodsDetail: that.detail,
+          goodsSpecs: that.specs,
+          goodsTypeId: that.region
+        })
+        .then(res => {
+          console.log("请求成功", res);
+          console.log(that.name);
+        })
+        .catch(err => {
+          console.log("请求失败", err);
+        });
     },
-    
- 
-  },
-
+    onEdit(row) {
+      console.log(row);
+    //   let that = this;
+      this.axios
+        .post("/goods/list/delete", {
+          goodsId: row.goodsId
+        })
+        .then(res => {
+          console.log("请求成功", res);
+        })
+        .catch(err => {
+          console.log("请求失败", err);
+        });
+    }
+  }
 };
 </script>
 
