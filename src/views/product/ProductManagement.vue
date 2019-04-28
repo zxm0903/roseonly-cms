@@ -7,6 +7,14 @@
       <el-table-column label="录入时间" prop="groudingTime"></el-table-column>
       <el-table-column label="产品名称" prop="goodsName"></el-table-column>
       <el-table-column label="分类名称" prop="goodsType.goodsTypeName"></el-table-column>
+      <el-table-column label="商品状态" prop="goodsType.goodsTypeName"></el-table-column>
+      <el-table-column align="right">
+        
+        <template slot-scope="scope">
+          <el-button size="mini" type="success"  @click="shangjia(scope.row.goodsId)">上架</el-button>
+          <el-button size="mini" type="success"  @click="xiajia(scope.row.goodsId)">下架</el-button>
+        </template>
+      </el-table-column>
       <el-table-column align="right">
         <template slot="header">
           <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>
@@ -14,7 +22,7 @@
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑产品</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index,scope.row)">删除</el-button>
-          <el-button size="mini" type="success">预览</el-button>
+          <el-button size="mini" type="success" @click="look(scope.row.goodsId)">预览</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -69,6 +77,9 @@ export default {
         .catch(err => {
           console.log("请求失败", err);
         });
+    },
+    look(){
+      window.open('http://www.baidu.com',"_blank")
     }
   },
   created() {
