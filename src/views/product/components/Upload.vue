@@ -64,7 +64,7 @@ export default {
       console.log(a.file.name);
 
       this.axios
-        .post("/goods/picture/upload", formdate,config)
+        .post("/goods/picture/upload", formdate)
         .then(res => {
           console.log(res);
         })
