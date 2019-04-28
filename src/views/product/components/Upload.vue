@@ -2,8 +2,8 @@
   <div id="upload">
     <el-upload
       ref="upload"
+      action="string"
       list-type="picture-card"
-      action=""
       :http-request="imgupload"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove"
@@ -57,9 +57,9 @@ export default {
       var formdate = new FormData();
       console.log(formdate)
       formdate.append('file', a.file);
-      // formdate.append("picName", a.file.name);
-      // formdate.append("picCode", 1);
-      // formdate.append("picLinkUrl", "");
+      formdate.append("picName", a.file.name);
+      formdate.append("picCode", 1);
+      formdate.append("picLinkUrl", "");
       console.log(formdate)
       this.axios
         .post("/goods/picture/upload",formdate,config)
