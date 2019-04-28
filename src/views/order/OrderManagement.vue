@@ -30,17 +30,20 @@
         </template>
       </el-table-column>
     </el-table>
+    <orderdetail />
     <Consignment :dialog="isconsignment"></Consignment>
   </div>
 </template>
 <script>
 import GoodList from '@/views/order/components/GoodList'
 import Consignment from '@/views/order/components/Consignment'
+import orderdetail from '@/views/order/components/Orderdetail'
 export default {
   name: "ordermanagement",
   components:{
     GoodList,
-    Consignment
+    Consignment,
+    orderdetail
   },
   data() {
     return {

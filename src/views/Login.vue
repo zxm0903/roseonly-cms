@@ -53,23 +53,23 @@ export default {
   methods: {
     login() {
       var that = this;
-      this.axios
-        .post("/users/login", {
+      this.axios.post("/users/login", {
           cellphone: that.username,
-          passwrod: that.userpass,
+          password: that.userpass,
           identity:1
         })
         .then((res) => {
           console.log(res)
-          // if (res.data.state == 200) {
-          //   // 保存登录状态
-          //   localStorage.setItem("token", res.data.token);
-          //   // 使用 this.$router 对象
-          //   this.$router.push('/')
-          // } else {
-          //   // 模态框
-          //   alert("账号或者密码错误")
-          // }
+          if (res.data.state == 200) {
+            // 保存登录状态
+            // localStorage.setItem("token", res.data.token);
+            // 使用 this.$router 对象
+            this.$router.push('/')
+          } else {
+            // 模态框
+            console.log(res.data.state)
+            alert("账号或者密码错误")
+          }
         })
         .catch((err) => {
           console.log(err)

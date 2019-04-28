@@ -21,8 +21,19 @@ axios.defaults.baseURL = 'http://172.16.7.76:8080'
 // axios.defaults.headers = {'X-Custom-Header': 'foobar'}
 // axios.defaults.headers.common['Authorization'] = 'Bearer ';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-// axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-
+// axios.defaults.headers['Content-Type'] = 'c';
+import qs from 'qs'
+axios.interceptors.request.use(config => {
+  if(config.type == 'formData' || config.method != 'post'){
+      return config
+  }
+  config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+  config.data = qs.stringify(config.data)
+  console.log(config);
+  return config
+  }, (err) =>{
+  return Promise.reject(err);
+})
 
  
 Vue.config.productionTip = false
