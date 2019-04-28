@@ -9,7 +9,7 @@ import '@/assets/index.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import echarts from 'echarts'
-import qs from 'qs'
+
 Vue.prototype.$echarts = echarts
 
 

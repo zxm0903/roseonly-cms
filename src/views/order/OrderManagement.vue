@@ -30,6 +30,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <orderdetail />
     <Consignment :dialog="dialog"></Consignment>
   </div>
 </template>
