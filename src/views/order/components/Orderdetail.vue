@@ -1,12 +1,7 @@
 <template>
   <!-- <div> -->
-  <el-dialog
-    title="订单详情"
-    :visible.sync="isdetail.bool"
-    width="80%"
-    :before-close="handleClose"
-  >
-    <form>
+  <el-dialog title="订单详情" :visible.sync="isdetail.bool" width="80%" :before-close="handleClose">
+    <form id="printTest">
       <div class="mssege1">
         <p>
           订单编号
@@ -16,11 +11,11 @@
         </p>
         <p>
           收获人信息
-          <span>{{consignee}}</span>
+          <span>{{isdetail.row.user.username}}</span>
         </p>
         <p>
           支付方式
-          <span>{{payWay}}</span>
+          <span>{{isdetail.row.payMethod}}</span>
         </p>
         <p>
           配送方式
@@ -42,23 +37,23 @@
             <td>数量</td>
             <td>小计</td>
           </tr>
-          <tr>
+          <tr v-for="(table,index) in tables" :key="index">
             <td>
               <div>
-                <img :src="url" alt>
-                <span v-text="pictureName"></span>
+                <img :src="tables.url" alt>
+                <span v-text="tables.pictureName"></span>
               </div>
             </td>
             <td>
               <span>￥</span>
-              <span v-text="prise"></span>
+              <span v-text="tables.prise"></span>
             </td>
             <td>
-              <span v-text="count"></span>
+              <span v-text="tables.count"></span>
             </td>
             <td>
               <span>￥</span>
-              <span v-text="priseTotal"></span>
+              <span v-text="tables.priseTotal"></span>
             </td>
           </tr>
         </table>
@@ -86,7 +81,7 @@
 
     <span slot="footer" class="dialog-footer">
       <el-button @click="isdetail.bool = false">取 消</el-button>
-      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      <el-button type="primary" @click="dialogVisible = false" v-print="'#printTest'">打印订单</el-button>
     </span>
   </el-dialog>
   <!-- </div> -->
@@ -101,18 +96,23 @@ export default {
       consignee: "",
       payWay: "",
       // 配送方式
-      sendWay: "",
+      sendWay: "包邮",
       // 邮寄方式
       expressWay: "",
       // 图片名称
       pictureName: "",
-      // 图片地址
-      url: "",
-      // 商品价格
-      prise: "",
-      count: "",
-      // 商品小计
-      priseTotal: "",
+      tables: [
+        {
+          // 图片地址
+          url: "",
+          // 商品价格
+          prise: "",
+          count: "",
+          // 商品小计
+          priseTotal: ""
+        }
+      ],
+
       // 总价
       priseAll: "",
       // 优惠金额

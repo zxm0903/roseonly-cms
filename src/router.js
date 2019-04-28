@@ -54,9 +54,9 @@ export default new Router({
           component:() => import('@/views/statistics/TransactionAnalysis')
         },
         {
-          path:'/VipDetail',
-          name:'VipDetail',
-          component:() => import('@/views/vip/VipDetail')
+          path:'/Operate',
+          name:'Operate',
+          component:() => import('@/views/systemManagement/Operate')
         }
       ]
     },

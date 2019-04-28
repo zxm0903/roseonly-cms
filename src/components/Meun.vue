@@ -41,18 +41,12 @@
       </el-submenu>
       <el-submenu index="4">
         <template slot="title">
-          <i class="el-icon-menu"></i>会员
+          <i class="el-icon-menu"></i>系统管理
         </template>
         <el-menu-item-group>
           <el-menu-item index="4-1">
-            <router-link to="/VipDetail">会员分析</router-link>
+            <router-link to="/Operate">操作记录</router-link>
           </el-menu-item>
-          <!-- <el-menu-item index="4-2">
-            <router-link to="/MAnagementVip">管理会员</router-link>
-          </el-menu-item>
-          <el-menu-item index="4-3">
-            <router-link to="/RankVip">会员等级</router-link>
-          </el-menu-item> -->
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
