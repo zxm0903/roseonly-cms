@@ -31,7 +31,8 @@ export default {
         {
           date: "2016-05-02",
           name: "鲜花",
-          address: "新品"
+          address: "新品",
+          goodsId:1
         }
       ],
       search: "",
@@ -41,7 +42,7 @@ export default {
       }
     };
   },
-  componemts:{
+  components:{
     EditGoods
   },
   methods: {
@@ -49,7 +50,7 @@ export default {
       console.log(row);
       this.isedit = {
         bool:true,
-        id:row.goodsIds || 0
+        id:row.goodsId || 0
       }
     },
     handleDelete(row) {

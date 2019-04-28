@@ -28,29 +28,29 @@
             <el-input v-model="form.num"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
+            <el-button type="primary" @click="onSubmit">修改</el-button>
             <!-- <el-button>取消</el-button> -->
           </el-form-item>
-          <el-form-item v-if="location == '/productmanagement'">
-            <el-button type="primary" @click="onEdit">edit</el-button>
+          <!-- <el-form-item v-if="location == '/productmanagement'">
+            <el-button type="primary" @click="onEdit">edit</el-button> -->
             <!-- <el-button>取消</el-button> -->
-          </el-form-item>
+          <!-- </el-form-item> -->
         </el-form>
       </el-col>
       <el-col :xs="24" :sm="16">
-        <Upload></Upload>
+        <!-- <Upload></Upload> -->
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import Upload from "@/views/product/components/Upload";
+// import Upload from "@/views/product/components/Upload";
 import CateoriesSelect from "@/views/product/components/CategoriesSelect";
 // import axios from
 export default {
   name: "goodsform",
   components: {
-    Upload,
+    // Upload,
     CateoriesSelect
   },
   data() {
