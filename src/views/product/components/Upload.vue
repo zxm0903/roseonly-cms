@@ -2,6 +2,7 @@
   <div id="upload">
     <el-upload
       ref="upload"
+      action="string"
       list-type="picture-card"
       action
       :http-request="imgupload"
