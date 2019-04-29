@@ -17,26 +17,34 @@
         </template>
       </el-table-column>
     </el-table>
-    
+    <ProductCategoriesDetail :isdetail="isdetail"/>
     <CategoriesEdit :edit="edit"></CategoriesEdit>
   </div>
 </template>
 <script>
 import CategoriesEdit from "@/views/product/components/CategoriesEdit";
+// 引入添加产品分类组件
+import ProductCategoriesDetail from "@/views/product/components/ProductCategoriesDetail";
 export default {
-  name: "productcategories",
+  name: "productCategories",
   data() {
     return {
-      tableData:[],
+      tableData: [],
       search: "",
       edit: {
         isedit: false,
         editdata: ""
+      },
+      // dialog: false,
+      isdetail: {
+        bool: false,
+        row: ""
       }
     };
   },
   components: {
-    CategoriesEdit
+    CategoriesEdit,
+    ProductCategoriesDetail
   },
   methods: {
     handleEdit(data) {
@@ -60,8 +68,8 @@ export default {
           console.log("请求失败", err);
         });
     },
-    addclass(){
-      
+    addclass() {
+      this.isdetail.bool = true
     }
   },
   created() {

@@ -60,14 +60,14 @@ export default {
         })
         .then((res) => {
           console.log(res)
-          if (res.data.state == 200) {
+          console.log(that.$config)
+          if (res.data.code == 200) {
             // 保存登录状态
             // localStorage.setItem("token", res.data.token);
             // 使用 this.$router 对象
             this.$router.push('/')
           } else {
             // 模态框
-            console.log(res.data.state)
             alert("账号或者密码错误")
           }
         })

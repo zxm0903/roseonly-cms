@@ -57,18 +57,9 @@
           </template>
         </el-table-column>
       </el-table>
-    </template>
-    <template>
+      <!-- 分页器 -->
       <div class="block">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[4]"
-          :page-size="4"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="totalpcsData"
-        ></el-pagination>
+        <el-pagination background layout="prev, pager, next"  :total="totalpcsData"></el-pagination>
       </div>
     </template>
   </div>
@@ -103,6 +94,14 @@ export default {
         {
           name: "2",
           pageView: "2"
+        },
+        {
+          name: "1",
+          pageView: "1"
+        },
+        {
+          name: "2",
+          pageView: "2"
         }
       ],
       // 商品总数量
@@ -112,18 +111,18 @@ export default {
     };
   },
   created() {
-    this.axios
-      // .get("", {
-      //   totalpcsData:totalpcsData,
-      //   tableData:tableData
+    this.axios;
+    // .get("", {
+    //   totalpcsData:totalpcsData,
+    //   tableData:tableData
 
-      // })
-      // .then(res => {
-      //   console.log(res.data);
-      // })
-      // .catch(error => {
-      //   console.log(error);
-      // });
+    // })
+    // .then(res => {
+    //   console.log(res.data);
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    // });
   },
   methods: {
     getToday() {

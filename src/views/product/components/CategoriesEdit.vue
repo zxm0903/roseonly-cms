@@ -47,6 +47,9 @@ export default {
         .catch(err => {
           console.log("请求失败", err);
         });
+    },
+      handleClose(done) {
+      done();
     }
   }
 };

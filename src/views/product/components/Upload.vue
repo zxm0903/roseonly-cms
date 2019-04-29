@@ -4,7 +4,7 @@
       ref="upload"
       action="string"
       list-type="picture-card"
-      action
+    
       :http-request="imgupload"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove"
@@ -48,9 +48,9 @@ export default {
       console.log(this.dialogImageUrl);
     },
     imgupload(a) {
-      let config = {
-        headers: { "Content-Type": "multipart/form-data" }
-      };
+      // let config = {
+      //   headers: { "Content-Type": "multipart/form-data" }
+      // };
       // console.log("456", a.file);
       // var imgFile = e.target.files[0];
       let formdate = new FormData();
