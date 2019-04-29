@@ -36,7 +36,7 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="3-1"><router-link to="/ordermanagement">管理订单</router-link></el-menu-item>
-          <el-menu-item index="3-2"><router-link to="/">快速打单</router-link></el-menu-item>
+         
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="4">
@@ -54,7 +54,14 @@
 </template>
 <script>
 export default {
-  name: "menus"
+  name: "menus",
+  data(){
+    return{
+      data:{
+        
+      }
+    }
+  }
 };
 </script>
 <style>

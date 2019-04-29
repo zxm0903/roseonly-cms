@@ -42,11 +42,13 @@ export default {
       var that = this;
       this.axios
       .post('/goods/classify/add',{
-          goodsTypeName:'',
+          goodsTypeName:that.sizeForm.name,
           goodsTypeSuperior:2
       })
       .then(res=>{
           console.log(res);
+          alert('添加成功')
+       
 
       })
       .catch((error)=>{

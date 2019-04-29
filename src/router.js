@@ -17,7 +17,7 @@ const router =  new Router({
       },
       children:[
         {
-          path:'/addproduct',
+          path:'/',
           name:'addproduct',
           component:() => import('@/views/product/AddProduct'),
           meta:{

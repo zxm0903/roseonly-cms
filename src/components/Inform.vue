@@ -28,7 +28,7 @@ export default {
       that.$notify({
         title: "系统消息",
         message: data.content,
-        duration: 0
+        duration: 5*1000
       });
       // e.data.split('/').join('')
       console.log(12,data,e);

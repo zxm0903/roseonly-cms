@@ -12,7 +12,9 @@
       <!-- 右侧 -->
       <el-container>
         <!-- 右侧头部 -->
-        <el-header height="80px"></el-header>
+        <el-header height="80px">
+          <!-- <h1 :title=""></h1> -->
+        </el-header>
 
         <!-- 右侧内容展示 -->
         <el-main>
@@ -32,12 +34,20 @@ import Inform from "@/components/Inform.vue";
 
 export default {
   name: "home",
+  data(){
+    return{
+      title:''
+    }
+  },
   components: {
     Meuns,
     Inform
   },
   methods:{
     
+  },
+  created(){
+
   }
 };
 </script>

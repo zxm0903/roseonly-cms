@@ -42,6 +42,17 @@
       </el-table-column>
     </el-table>
     <EditGoods :isedit="isedit"></EditGoods>
+    <!-- 分页器 -->
+    <div class="block">
+      <el-pagination
+        @current-change="currentChange"
+        :page-size="pageSize"
+        :current-page.sync="page"
+        background
+        layout="prev, pager, next"
+        :total="pageTotal"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -50,6 +61,9 @@ export default {
   name: "productmanagement",
   data() {
     return {
+      pageSize: 6,
+      page: 1,
+      pageTotal: '',
       tableData: [],
       search: "",
       isedit: {
@@ -75,14 +89,14 @@ export default {
       let that = this;
       this.axios
         .post("/goods/list/delete", {
-          adminId:1,
+          adminId: 1,
           goodsIds: row.goodsId
         })
         .then(res => {
           console.log("请求成功", res);
           // that.tableData = res.data;
-          if(res.data.code == 200){
-             that.tableData.splice(index,1)
+          if (res.data.code == 200) {
+            that.tableData.splice(index, 1);
           }
         })
         .catch(err => {
@@ -92,11 +106,11 @@ export default {
     look(id) {
       window.open("http://172.16.7.11:8080/goodsDetail/" + id, "_blank");
     },
-    shangjia(index,id) {
+    shangjia(index, id) {
       let that = this;
       this.axios
         .post("/goods/grouding", {
-          adminId:1,
+          adminId: 1,
           goodsIds: id
         })
         .then(res => {
@@ -109,11 +123,11 @@ export default {
           console.log("请求失败", err);
         });
     },
-    xiajia(index,id) {
+    xiajia(index, id) {
       let that = this;
       this.axios
         .post("/goods/under", {
-          adminId:1,
+          adminId: 1,
           goodsIds: id
         })
         .then(res => {
@@ -125,15 +139,39 @@ export default {
         .catch(err => {
           console.log("请求失败", err);
         });
+    },
+    currentChange(val) {
+      var that = this;
+      this.axios
+        .get("/goods/search/all/list", {
+          parms: {
+            pageNo: val,
+            pageSize: that.pageSize
+          }
+        })
+        .then(res => {
+          console.log("请求成功", res);
+          that.tableData = res.data.data.data;
+          that.pageTotal = res.data.data.count;
+        })
+        .catch(error => {
+          console.log("请求失败", err);
+        });
     }
   },
   created() {
     let that = this;
     this.axios
-      .get("/goods/search/all/list")
+      .get("/goods/search/all/list", {
+        parms: {
+          pageNo: 1,
+          pageSize: that.pageSize
+        }
+      })
       .then(res => {
         console.log("请求成功", res);
         that.tableData = res.data.data.data;
+        that.pageTotal = res.data.data.count;
       })
       .catch(err => {
         console.log("请求失败", err);
