@@ -13,7 +13,7 @@
         </template>
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.row.goodsTypeId)">删除</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index,scope.row.goodsTypeId)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -43,7 +43,8 @@ export default {
       this.edit.isedit = true;
       this.edit.editdata = data;
     },
-    handleDelete(id) {
+    handleDelete(index,id) {
+      let that = this
       this.axios
         .post("/goods/classify/delete", {
           goodsTypeId: id
@@ -51,6 +52,9 @@ export default {
         .then(res => {
           // that.tableData = res.data
           console.log(res);
+          if(res.data.code == 200){
+             that.tableData.splice(index,1)
+          }
         })
         .catch(err => {
           console.log("请求失败", err);
@@ -70,7 +74,9 @@ export default {
         // that.tableData = res.data
         console.log(res.data.data.data);
 
-        that.edit.tableData = res.data.data.data;
+        if(res.data.code == 200){
+          that.tableData = res.data.data.data;
+        }
       })
       .catch(err => {
         console.log("请求失败", err);

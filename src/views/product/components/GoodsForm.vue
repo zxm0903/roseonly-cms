@@ -81,7 +81,8 @@ export default {
           goodsPrice: that.goodsPrice,
           goodsDetail: that.goodsDetail,
           goodsSpecs: that.goodsSpecs,
-          goodsTypeId: 2
+          goodsTypeId: 2,
+          
         })
         .then(res => {
           console.log("请求成功", res);

@@ -7,12 +7,27 @@
       <el-table-column label="录入时间" prop="groudingTime"></el-table-column>
       <el-table-column label="产品名称" prop="goodsName"></el-table-column>
       <el-table-column label="分类名称" prop="goodsType.goodsTypeName"></el-table-column>
-      <el-table-column label="商品状态" prop="goodsType.goodsTypeName"></el-table-column>
-      <el-table-column align="right">
-        
+      <el-table-column label="价格" prop="goodsPrice"></el-table-column>
+      <el-table-column label="商品状态">
         <template slot-scope="scope">
-          <el-button size="mini" type="success"  @click="shangjia(scope.row.goodsId)">上架</el-button>
-          <el-button size="mini" type="success"  @click="xiajia(scope.row.goodsId)">下架</el-button>
+          <span v-if="scope.row.goodsGroundingStatus == 1">已上架</span>
+          <span v-if="scope.row.goodsGroundingStatus == 0">已下架</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="商品上架/下架" align="left">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            v-if="scope.row.goodsGroundingStatus == 0"
+            type="success"
+            @click="shangjia(scope.$index,scope.row.goodsId)"
+          >上架</el-button>
+          <el-button
+            size="mini"
+            v-if="scope.row.goodsGroundingStatus == 1"
+            type="danger"
+            @click="xiajia(scope.$index,scope.row.goodsId)"
+          >下架</el-button>
         </template>
       </el-table-column>
       <el-table-column align="right">
@@ -30,38 +45,31 @@
   </div>
 </template>
 <script>
-import EditGoods from '@/views/product/components/EditGoods'
+import EditGoods from "@/views/product/components/EditGoods";
 export default {
   name: "productmanagement",
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "鲜花",
-          address: "新品",
-          goodsId:1
-        }
-      ],
+      tableData: [],
       search: "",
-      isedit:{
-        bool:false,
-        row:''
+      isedit: {
+        bool: false,
+        row: ""
       }
     };
   },
-  components:{
+  components: {
     EditGoods
   },
   methods: {
     handleEdit(row) {
       console.log(row);
       this.isedit = {
-        bool:true,
-        row:row
-      }
+        bool: true,
+        row: row
+      };
     },
-    handleDelete(index,row) {
+    handleDelete(index, row) {
       console.log(row);
 
       let that = this;
@@ -72,14 +80,48 @@ export default {
         .then(res => {
           console.log("请求成功", res);
           // that.tableData = res.data;
-          // that.tableData.splice(index,1)
+          if(res.data.code == 200){
+             that.tableData.splice(index,1)
+          }
         })
         .catch(err => {
           console.log("请求失败", err);
         });
     },
-    look(){
-      window.open('http://www.baidu.com',"_blank")
+    look(id) {
+      window.open("http://172.16.7.11:8080/goodsDetail/" + id, "_blank");
+    },
+    shangjia(index,id) {
+      let that = this;
+      this.axios
+        .post("/goods/grouding", {
+          goodsIds: id
+        })
+        .then(res => {
+          console.log("请求成功", res);
+          if (res.data.code == 200) {
+            that.tableData[index].goodsGroundingStatus = 1;
+          }
+        })
+        .catch(err => {
+          console.log("请求失败", err);
+        });
+    },
+    xiajia(index,id) {
+      let that = this;
+      this.axios
+        .post("/goods/under", {
+          goodsIds: id
+        })
+        .then(res => {
+          console.log("请求成功", res);
+          if (res.data.code == 200) {
+            that.tableData[index].goodsGroundingStatus = 0;
+          }
+        })
+        .catch(err => {
+          console.log("请求失败", err);
+        });
     }
   },
   created() {
