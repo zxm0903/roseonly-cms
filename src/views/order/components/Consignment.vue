@@ -39,6 +39,10 @@ export default {
 
           done();
 
+    },
+    consign(id){
+      let that = this
+      // this.axios.
     }
   }
 };

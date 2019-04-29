@@ -75,6 +75,7 @@ export default {
       let that = this;
       this.axios
         .post("/goods/list/delete", {
+          adminId:1,
           goodsIds: row.goodsId
         })
         .then(res => {
@@ -95,6 +96,7 @@ export default {
       let that = this;
       this.axios
         .post("/goods/grouding", {
+          adminId:1,
           goodsIds: id
         })
         .then(res => {
@@ -111,6 +113,7 @@ export default {
       let that = this;
       this.axios
         .post("/goods/under", {
+          adminId:1,
           goodsIds: id
         })
         .then(res => {

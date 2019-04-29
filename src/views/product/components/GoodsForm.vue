@@ -75,6 +75,7 @@ export default {
       console.log(id,that);
       this.axios
         .post("/goods/"+ id +"/update", {
+          adminId:1,
           goodsTotal: that.goodsTotal,
           goodsColor: that.goodsColor,
           goodsName: that.goodsName,
