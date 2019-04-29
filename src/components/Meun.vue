@@ -7,7 +7,7 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="1-1">
-            <router-link to="/ShopCondition">商城概况</router-link>
+            <router-link to="/">商城概况</router-link>
           </el-menu-item>
           <el-menu-item index="1-2">
             <router-link to="/TransactionAnalysis">交易分析</router-link>

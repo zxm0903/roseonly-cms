@@ -17,7 +17,7 @@ const router =  new Router({
       },
       children:[
         {
-          path:'/',
+          path:'/addproduct',
           name:'addproduct',
           component:() => import('@/views/product/AddProduct'),
           meta:{
@@ -65,7 +65,7 @@ const router =  new Router({
           }
         },
         {
-          path:'/ShopCondition',
+          path:'/',
           name:'ShopCondition',
           component:() => import('@/views/statistics/ShopCondition'),
           meta:{

@@ -5,18 +5,18 @@
       style="width: 100%"
     >
       <el-table-column type="expand">
-        <!-- <template slot-scope="props"> -->
-        <GoodList :good="tableData"></GoodList>
+        <template slot-scope="props">
+        <GoodList :good="props.row.trolleys"></GoodList>
 
-        <!-- {{props.row.name[0]}} -->
+        <!-- {{props.row.trolleys[0].goods.goodsName}} -->
         <!-- {{props.row.name[1]}} -->
-        <!-- </template> -->
+        </template>
       </el-table-column>
 
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="订单编号" prop="orderDetailId"></el-table-column>
-
-      <el-table-column label="买家/联系方式" prop="user.cellphone"></el-table-column>
+      <el-table-column label="买家" prop="user.username"></el-table-column>
+      <el-table-column label="联系方式" prop="user.cellphone"></el-table-column>
       <el-table-column label="实付金额（元）" prop="orderDetailTotalPrice"></el-table-column>
       <el-table-column label="订单状态" prop="orderDetailStatus"></el-table-column>
       <el-table-column align="right">
@@ -62,41 +62,15 @@ export default {
         row: ""
       },
       tableData: [
-        {
-          name: ["鲜花", "ghj"],
-          id: "12345",
-          num: "12/2",
-          buy: "zxm/15882796070",
-          url: "http://pic.58pic.com/58pic/15/11/51/20E58PICNs4_1024.jpg",
-          price: "24",
-          orderstate: 1
-        },
-        {
-          name: ["鲜花", "ghj"],
-          id: "12345",
-          num: "12/2",
-          buy: "zxm/15882796070",
-          url: "http://pic.58pic.com/58pic/15/11/51/20E58PICNs4_1024.jpg",
-          price: "24",
-          orderstate: 1
-        },
-        {
-          name: ["鲜花", "ghj"],
-          id: "12345",
-          num: "12/2",
-          buy: "zxm/15882796070",
-          url: "http://pic.58pic.com/58pic/15/11/51/20E58PICNs4_1024.jpg",
-          price: "24",
-          orderstate: 2
-        }
+      
       ],
       search: ""
     };
   },
   methods: {
-    consignment(index,row) {
+    consignment(index, row) {
       this.consign.bool = true;
-      this.consign.row = row
+      this.consign.row = row;
     },
     handleEdit(row) {
       this.isdetail.bool = true;
@@ -108,7 +82,7 @@ export default {
     this.axios
       .get("/orders/all/list")
       .then(res => {
-        console.log(res.data.data);
+        console.log(res);
         that.tableData = res.data.data;
       })
       .catch(err => {

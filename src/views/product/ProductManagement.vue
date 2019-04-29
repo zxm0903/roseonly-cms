@@ -144,7 +144,7 @@ export default {
       var that = this;
       this.axios
         .get("/goods/search/all/list", {
-          parms: {
+          params: {
             pageNo: val,
             pageSize: that.pageSize
           }
@@ -163,7 +163,7 @@ export default {
     let that = this;
     this.axios
       .get("/goods/search/all/list", {
-        parms: {
+        params: {
           pageNo: 1,
           pageSize: that.pageSize
         }

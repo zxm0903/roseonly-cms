@@ -4,7 +4,7 @@
 export default {
   created() {
     let that =this
-    var socket = new WebSocket("ws://172.16.7.71:9999");
+    var socket = new WebSocket("ws://172.16.7.76:9999");
 
     socket.addEventListener("open", function() {
       console.log("连接成功");
@@ -16,19 +16,14 @@ export default {
       socket.send(JSON.stringify(obj));
       // console.log(obj);
     });
-    // 主动给websocket发消息
-    // button.addEventListener("click", function() {
-    //   var val = input.value;
-    //   socket.send(val);
-    // });
-    // 接受websoket的消息
+
     socket.addEventListener("message", function(e) {
       console.log(e)
       let data = JSON.parse(e.data.split('\\').join(''))
       that.$notify({
         title: "系统消息",
         message: data.content,
-        duration: 5*1000
+        duration: 0
       });
       // e.data.split('/').join('')
       console.log(12,data,e);
