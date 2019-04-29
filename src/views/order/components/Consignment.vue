@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="发货" :visible.sync="dialog" width="30%" :before-close="handleClose">
+  <el-dialog title="发货" :visible.sync="dialog.bool" width="30%" :before-close="handleClose">
     <el-form label-position="left" ref="form" :model="form" label-width="80px">
       <el-form-item label="快递">
         <el-select v-model="form.region" placeholder="请选择快递">
@@ -12,8 +12,8 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="dialog = false">取 消</el-button>
-      <el-button type="primary" @click="dialog = false">确 定</el-button>
+      <el-button @click="dialog.bool = false">取 消</el-button>
+      <el-button type="primary" @click="consign(dialog.row.id)">确认发货</el-button>
     </span>
   </el-dialog>
 </template>

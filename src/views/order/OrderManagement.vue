@@ -29,14 +29,14 @@
             size="mini"
             v-if="scope.row.orderDetailStatus == '已支付'"
             type="danger"
-            @click="consignment"
+            @click="consignment(scope.$index,scope.row)"
           >发货</el-button>
           <!-- <el-button size="mini" type="success">打印订单</el-button> -->
         </template>
       </el-table-column>
     </el-table>
     <orderdetail :isdetail="isdetail"/>
-    <Consignment :dialog="dialog"></Consignment>
+    <Consignment :dialog="consign"></Consignment>
   </div>
 </template>
 <script>
@@ -53,6 +53,10 @@ export default {
   data() {
     return {
       dialog: false,
+      consign: {
+        bool: false,
+        row: ""
+      },
       isdetail: {
         bool: false,
         row: ""
@@ -90,8 +94,9 @@ export default {
     };
   },
   methods: {
-    consignment() {
-      this.dialog = true;
+    consignment(index,row) {
+      this.consign.bool = true;
+      this.consign.row = row
     },
     handleEdit(row) {
       this.isdetail.bool = true;

@@ -4,10 +4,10 @@
       <el-col :xs="24" :sm="8">
         <el-form label-position="left" ref="form" :model="form" label-width="80px">
           <el-form-item label="产品名称">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="row.goodsName" :placeholder="row.goodsName"></el-input>
           </el-form-item>
           <el-form-item label="产品详情">
-            <el-input v-model="form.detail"></el-input>
+            <el-input v-model="row.goodsDetail" :placeholder="row.goodsDetail"></el-input>
           </el-form-item>
 
           <el-form-item label="产品分类">
@@ -19,16 +19,16 @@
           </el-form-item>
 
           <el-form-item label="产品颜色">
-            <el-input v-model="form.color"></el-input>
+            <el-input v-model="row.goodsColor" :placeholder="row.goodsColor"></el-input>
           </el-form-item>
           <el-form-item label="产品价格">
-            <el-input v-model="form.price"></el-input>
+            <el-input v-model="row.goodsPrice" :placeholder="row.goodsPrice"></el-input>
           </el-form-item>
           <el-form-item label="产品库存">
-            <el-input v-model="form.num"></el-input>
+            <el-input v-model="row.goodsTotal" :placeholder="row.goodsTotal"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">修改</el-button>
+            <el-button type="primary" @click="onSubmit(row.goodsId)">修改</el-button>
             <!-- <el-button>取消</el-button> -->
           </el-form-item>
           <!-- <el-form-item v-if="location == '/productmanagement'">
@@ -55,33 +55,34 @@ export default {
   },
   data() {
     return {
-      form: {
-        name: "",
-        region: "2",
-        color: "",
-        price: "",
-        num: "",
-        detail: "",
-        specs: "80cm"
-      }
+      form: {}
     };
+  },
+  props:[
+    'row'
+  ],
+  computed:{
+    change:function(){
+      return this.form = this.row
+    }
   },
   methods: {
     /*
      *提交商品信息
      */
-    onSubmit() {
-      var that = this.form;
-      console.log(that);
+    onSubmit(id) {
+      var that = this.row;//假的
+      console.log(id,that);
       this.axios
-        .post("/goods/storage", {
-          goodsTotal: that.num,
-          goodsColor: that.color,
-          goodsName: that.name,
-          goodsPrice: that.price,
-          goodsDetail: that.detail,
-          goodsSpecs: that.specs,
-          goodsTypeId: that.region
+        .post("/goods/"+ id +"/update", {
+          goodsTotal: that.goodsTotal,
+          goodsColor: that.goodsColor,
+          goodsName: that.goodsName,
+          goodsPrice: that.goodsPrice,
+          goodsDetail: that.goodsDetail,
+          goodsSpecs: that.goodsSpecs,
+          goodsTypeId: 2,
+          
         })
         .then(res => {
           console.log("请求成功", res);
