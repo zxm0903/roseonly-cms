@@ -4,21 +4,21 @@
     <form id="printTest">
       <div class="mssege1">
         <p>
-          订单编号
-          <span v-text="orderNum"></span>
-          订单状态
-          <span v-text="orderState"></span>
+          订单编号:
+          <span v-text="new Date().getTime() + '' +isdetail.row.orderDetailId"></span>
+          订单状态:
+          <span v-text="isdetail.row.orderDetailStatus"></span>
         </p>
         <p>
-          收获人信息
-          <span>{{isdetail.row.user.username}}</span>
+          收获人信息:
+          <!-- <span>{{isdetail.row.user.username}}</span> -->
         </p>
         <p>
-          支付方式
+          支付方式:
           <span>{{isdetail.row.payMethod}}</span>
         </p>
         <p>
-          配送方式
+          配送方式:
           <span>{{sendWay}}</span>
         </p>
       </div>
@@ -90,15 +90,8 @@
 export default {
   data() {
     return {
-      orderNum: "",
-      orderState: "",
-      // 收货人
-      consignee: "",
-      payWay: "",
       // 配送方式
       sendWay: "包邮",
-      // 邮寄方式
-      expressWay: "",
       // 图片名称
       pictureName: "",
       tables: [
