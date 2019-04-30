@@ -57,7 +57,8 @@ export default {
       payBuyer: 0,
       payGoodsCount: 0,
       xval: [],
-      yval: []
+      yval: [],
+      startTime:'',
     };
   },
   mounted() {
@@ -65,18 +66,42 @@ export default {
   },
   methods: {
     getToday() {
+      var that = this;
+      // 计算时间戳
+      var timetamp = new Date().getTime();
+
+      var oneDay = 24 * 60 * 60 * 1000;
+
+      var num = timetamp + oneDay;
+
+      var time = new Date(num)
+        .toLocaleString("chanese", { hour12: false })
+        .split("/")
+        .join("-");
+      console.log(time);
+
       console.log(
         new Date()
           .toLocaleString("chanese", { hour12: false })
           .split("/")
           .join("-")
       );
+      //计算开始时间
+      var timeYear = new Date().getFullYear();
+      var timeMonth = new Date().getMonth() + 1;
+      var timeDay = new Date().getDate();
+      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
+      console.log(timeYear, timeMonth, timeDay,startTime);
 
-      var that = this;
+      
 
       this.axios
-        .get("/shoppingmall/survey/specific", {
+        .get("/shoppingmall/survey/senven", {
           params: {
+            screeningStartTime: new Date()
+              .toLocaleString("chanese", { hour12: false })
+              .split("/")
+              .join("-"),
             screeningStartTime: new Date()
               .toLocaleString("chanese", { hour12: false })
               .split("/")
@@ -125,7 +150,10 @@ export default {
       this.axios
         .get("/shoppingmall/survey/senven", {
           params: {
-           screeningStartTime: new Date().toLocaleString('chanese',{hour12:false}).split('/').join('-')
+            screeningStartTime: new Date()
+              .toLocaleString("chanese", { hour12: false })
+              .split("/")
+              .join("-")
           }
         })
         .then(res => {
@@ -153,7 +181,7 @@ export default {
         },
         yAxis: {
           type: "value",
-          data: [200,400,600,800,1000,1200,1400,1600]
+          data: [200, 400, 600, 800, 1000, 1200, 1400, 1600]
         },
         series: [
           {
@@ -170,7 +198,10 @@ export default {
       this.axios
         .get("/shoppingmall/survey/senven", {
           params: {
-           screeningStartTime: new Date().toLocaleString('chanese',{hour12:false}).split('/').join('-')
+            screeningStartTime: new Date()
+              .toLocaleString("chanese", { hour12: false })
+              .split("/")
+              .join("-")
           }
         })
         .then(res => {
@@ -198,7 +229,7 @@ export default {
         },
         yAxis: {
           type: "value",
-          data: [200,400,600,800,1000,1200,1400,1600]
+          data: [200, 400, 600, 800, 1000, 1200, 1400, 1600]
         },
         series: [
           {
