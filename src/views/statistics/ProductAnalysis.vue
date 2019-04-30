@@ -135,7 +135,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
-    }
+    },
     getToday() {
       var that = this;
       this.axios

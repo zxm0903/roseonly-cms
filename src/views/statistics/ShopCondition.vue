@@ -313,7 +313,7 @@ export default {
         .split("/")
         .join("-");
       console.log(val);
-      thia.axios
+      this.axios
         .get("/shoppingmall/survey/specific", {
           params: {
             screeningStartTime: that.value
