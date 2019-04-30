@@ -1,5 +1,8 @@
 <template>
   <div id="productmanagement">
+    <CateoriesSelect></CateoriesSelect>
+    <el-button @click="shanglist">已上架</el-button>
+    <el-button @click="xialist">已下架</el-button>
     <el-table
       :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
       style="width: 100%"
@@ -58,6 +61,7 @@
 </template>
 <script>
 import EditGoods from "@/views/product/components/EditGoods";
+import CateoriesSelect from "@/views/product/components/CategoriesSelect";
 export default {
   name: "productmanagement",
   data() {
@@ -74,7 +78,8 @@ export default {
     };
   },
   components: {
-    EditGoods
+    EditGoods,
+    CateoriesSelect
   },
   methods: {
     handleEdit(row) {
@@ -156,6 +161,44 @@ export default {
           that.pageTotal = res.data.data.count;
         })
         .catch(error => {
+          console.log("请求失败", err);
+        });
+    },
+    shanglist() {
+      let that = this;
+      this.axios
+        .get("/goods/grouding/1/list", {
+          params: {
+            adminId: 1,
+            pageNo: 1,
+            pageSize: that.pageSize
+          }
+        })
+        .then(res => {
+          console.log("请求成功", res);
+          that.tableData = res.data.data.data;
+          that.pageTotal = res.data.data.count;
+        })
+        .catch(error => {
+          console.log("请求失败", err);
+        });
+    },
+    xialist() {
+      let that = this;
+      this.axios
+        .get("/goods/grouding/0/list", {
+          params: {
+            adminId: 1,
+            pageNo: 1,
+            pageSize: that.pageSize
+          }
+        })
+        .then(res => {
+          console.log("请求成功", res);
+          that.tableData = res.data.data.data || [];
+          that.pageTotal = res.data.data.count || 0;
+        })
+        .catch(err => {
           console.log("请求失败", err);
         });
     }
