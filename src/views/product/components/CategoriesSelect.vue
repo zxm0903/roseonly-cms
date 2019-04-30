@@ -34,11 +34,11 @@ export default {
     this.axios
       .get("/goods/storage")
       .then(res => {
-        console.log("请求成功", res.data.data.goodsTypeList);
-        let classlist = res.data.data.goodsTypeList;
+        console.log("请求成功", res);
+        let classlist = res.data.data;
         let list = [];
         classlist.map((e, i) => {
-          //  console.log(e,i)
+           console.log(e,i)
           list.push({
             value: e.goodsTypeId,
             label: e.goodsTypeName,

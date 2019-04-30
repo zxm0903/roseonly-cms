@@ -36,6 +36,8 @@
             <el-button>取消</el-button>
           </el-form-item> -->
         </el-form>
+        <el-button @click="getimgs">获取相册</el-button>
+        <img src="http://172.16.7.81:8080/uploadPath\picture\用户E-R图.jpg" alt="">
       </el-col>
       <el-col :xs="24" :sm="16">
         <Upload></Upload>
@@ -57,14 +59,21 @@ export default {
     return {
       form: {
         name: "",
-        region:this.$store.state.selectData,
+        region:4,
         color: "",
         price: "",
         num: '',
         detail:'',
-        specs:'80cm'
+        specs:'80cm',
+        adminPicIds:'4,5,6',
+        picCodes:'2,2,2'
       }
     };
+  },
+  computed:{
+    change(){
+      return this.region = this.$store.state.selectData
+    }
   },
   methods:{
     /*
@@ -82,7 +91,9 @@ export default {
           goodsPrice:that.price,
           goodsDetail:that.detail,
           goodsSpecs:that.specs,
-          goodsTypeId:that.region
+          goodsTypeId:that.region,
+          adminPicIds:that.adminPicIds,
+          picCodes:that.picCodes
 
       })
       .then((res) => {
@@ -93,6 +104,15 @@ export default {
         console.log('请求失败',err,)
       })
     },
+    getimgs(){
+      this.axios.get('/goods/adminPic')
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
     
  
   },

@@ -1,5 +1,5 @@
 export default {
-   selectData:'123'
+   selectData:4
   }
 
   
