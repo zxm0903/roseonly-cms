@@ -6,12 +6,13 @@
         <input type="button" value="今日" @click="getToday">
         <input type="button" value="昨日" @click="getYearstoday">
         <input type="button" value="最近7日" @click="getSeven">
-        <input type="button" value="最近30日" @click="getThirty">
+        <input type="button" value="本月" @click="getThirty">
       </div>
       <div class="right">
         <span style="margin-right:15px">选择日期</span>
         <el-date-picker
           v-model="value"
+          @change="change"
           type="daterange"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
@@ -23,19 +24,19 @@
     <div class="clear choose payCondition" style="height:120px">
       <div class="detail">
         <p>付款金额</p>
-        <span>data</span>
+        <span v-text="payMoney"></span>
       </div>
       <div class="detail">
         <p>付款订单数</p>
-        <span>data</span>
+        <span v-text="payOrder"></span>
       </div>
       <div class="detail">
         <p>付款买家数</p>
-        <span>data</span>
+        <span v-text="payBuyer"></span>
       </div>
       <div class="detail">
         <p>付款商品件数</p>
-        <span>data</span>
+        <span v-text="payGoodsCount"></span>
       </div>
     </div>
     <!-- 折线图 -->
@@ -49,7 +50,11 @@
 export default {
   data() {
     return {
-      value: ""
+      value: "",
+      payMoney:0,
+      payOrder:0,
+      payBuyer:0,
+      payGoodsCount:0
     };
   },
   mounted() {

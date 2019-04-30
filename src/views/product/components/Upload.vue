@@ -16,7 +16,7 @@
     <el-dialog :visible.sync="dialogVisible">
       <img width="100%" :src="dialogImageUrl" alt>
     </el-dialog>
-    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传图片</el-button>
     <!-- <el-button style="margin-left: 10px;" size="small" type="success" @click="abort">取消</el-button> -->
   </div>
 </template>

@@ -48,14 +48,14 @@ const router =  new Router({
             auth:true
           }
         },
-        {
-          path:'/CommodityAnalysis',
-          name:'CommodityAnalysis',
-          component:() => import('@/views/statistics/CommodityAnalysis'),
-          meta:{
-            auth:true
-          }
-        },
+        // {
+        //   path:'/CommodityAnalysis',
+        //   name:'CommodityAnalysis',
+        //   component:() => import('@/views/statistics/CommodityAnalysis'),
+        //   meta:{
+        //     auth:true
+        //   }
+        // },
         {
           path:'/ProductAnalysis',
           name:'ProductAnalysis',
@@ -65,7 +65,7 @@ const router =  new Router({
           }
         },
         {
-          path:'/',
+          path:'',
           name:'ShopCondition',
           component:() => import('@/views/statistics/ShopCondition'),
           meta:{

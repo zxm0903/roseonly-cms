@@ -28,7 +28,7 @@
           </div>
           <div class="register_findpassword">
             <span class="find_possword">
-              <a href="/findPass">忘记密码</a>
+              <!-- <a href="/findPass">忘记密码</a> -->
             </span>
           </div>
           <div class="loginBtn">
@@ -60,12 +60,12 @@ export default {
         })
         .then((res) => {
           console.log(res)
-          console.log(that.$config)
+          
           if (res.data.code == 200) {
             // 保存登录状态
             // localStorage.setItem("token", res.data.token);
             // 使用 this.$router 对象
-            this.$router.push('/')
+            that.$router.push('/')
           } else {
             // 模态框
             alert("账号或者密码错误")

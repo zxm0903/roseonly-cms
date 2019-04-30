@@ -6,10 +6,10 @@
     >
       <el-table-column type="expand">
         <template slot-scope="props">
-        <GoodList :good="props.row.trolleys"></GoodList>
+          <GoodList :good="props.row.trolleys"></GoodList>
 
-        <!-- {{props.row.trolleys[0].goods.goodsName}} -->
-        <!-- {{props.row.name[1]}} -->
+          <!-- {{props.row.trolleys[0].goods.goodsName}} -->
+          <!-- {{props.row.name[1]}} -->
         </template>
       </el-table-column>
 
@@ -61,9 +61,7 @@ export default {
         bool: false,
         row: ""
       },
-      tableData: [
-      
-      ],
+      tableData: [],
       search: ""
     };
   },
@@ -75,6 +73,7 @@ export default {
     handleEdit(row) {
       this.isdetail.bool = true;
       this.isdetail.row = row;
+      console.log(this.isdetail.row);
     }
   },
   created() {

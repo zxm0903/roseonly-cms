@@ -1,6 +1,6 @@
 <template>
   <!-- <div> -->
-  <el-dialog title="订单详情" :visible.sync="isdetail.bool" width="80%" :before-close="handleClose">
+  <el-dialog title="订单详情" :visible.sync="isdetail.bool" width="50%" :before-close="handleClose">
     <form id="printTest">
       <div class="mssege1">
         <p>
@@ -17,16 +17,10 @@
           支付方式:
           <span>{{isdetail.row.payMethod}}</span>
         </p>
-        <p>
+        <!-- <p>
           配送方式:
-          <span>{{sendWay}}</span>
-        </p>
-      </div>
-      <div class="mssege2">
-        <h4>物流详情</h4>
-        <div>
-          <span>{{expressWay}}</span>
-        </div>
+          <span>{{}}</span>
+        </p> -->
       </div>
       <div class="mssege3">
         <h4>购物清单</h4>
@@ -37,23 +31,23 @@
             <td>数量</td>
             <td>小计</td>
           </tr>
-          <tr v-for="(table,index) in tables" :key="index">
+          <tr v-for="(item,index) in isdetail.row.trolleys" :key="index">
             <td>
               <div>
-                <img :src="tables.url" alt>
-                <span v-text="tables.pictureName"></span>
+                <img :src="'http://172.16.7.76:8080/' + item.goods.pictures[0].picFileUrl" alt>
+                <span v-text="item.goods.pictures[0].picName"></span>
               </div>
             </td>
             <td>
               <span>￥</span>
-              <span v-text="tables.prise"></span>
+              <span v-text="item.goods.goodsPrice"></span>
             </td>
             <td>
-              <span v-text="tables.count"></span>
+              <span v-text="item.goodsNum"></span>
             </td>
             <td>
               <span>￥</span>
-              <span v-text="tables.priseTotal"></span>
+              <span v-text="item.goods.goodsPrice*item.goodsNum"></span>
             </td>
           </tr>
         </table>
@@ -62,7 +56,7 @@
             <p>
               商品总额
               <span>￥</span>
-              <span v-text="priseAll"></span>
+              <span v-text="isdetail.row.trolleys.totalPrice"></span>
             </p>
             <p>
               优惠金额
@@ -114,13 +108,15 @@ export default {
       sendMoney: ""
     };
   },
-  props: ["isdetail"],
+  props: ["isdetail"], 
   methods: {
     handleClose(done) {
       done();
     }
   },
-  created() {}
+  mounted() {
+    console.log('sdfghj',this.isdetail.row)
+  }
 };
 </script>
 
@@ -164,5 +160,10 @@ export default {
 .messege3_1 {
   float: right;
   margin: 30px;
+}
+img{
+  width: 80px;
+  height: 80px;
+  vertical-align: middle;
 }
 </style>
