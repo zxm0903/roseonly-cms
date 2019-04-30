@@ -3,7 +3,7 @@
     <el-table :data="good" style="width: 100%">
       <el-table-column >
         <template slot-scope="props">
-          <img :src="'http://172.16.7.81:8080'+ props.row.goods.pictures[0].picFileUrl">
+          <img :src="'http://172.16.7.76:8080/'+ props.row.goods.pictures[0].picFileUrl">
           <!-- {{props.row}} -->
         </template>
       </el-table-column>

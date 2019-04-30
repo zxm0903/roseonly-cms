@@ -13,7 +13,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" width="30"></el-table-column>
       <el-table-column label="订单编号" prop="orderDetailId"></el-table-column>
       <el-table-column label="买家" prop="user.username"></el-table-column>
       <el-table-column label="联系方式" prop="user.cellphone"></el-table-column>

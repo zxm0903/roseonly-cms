@@ -82,7 +82,7 @@ export default {
           goodsPrice: that.goodsPrice,
           goodsDetail: that.goodsDetail,
           goodsSpecs: that.goodsSpecs,
-          goodsTypeId: 2,
+          goodsTypeId: this.$store.state.selectData,
           
         })
         .then(res => {

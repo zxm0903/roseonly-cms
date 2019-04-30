@@ -105,7 +105,7 @@ const router =  new Router({
 })
 
 
-// // 路由拦截  全局路由钩子
+// 路由拦截  全局路由钩子
 // router.beforeEach((to,from,next)=>{
 //   console.log('即将要跳转的路由：', to);
 //   console.log('即将离开的路由：', from);

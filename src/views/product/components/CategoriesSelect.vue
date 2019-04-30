@@ -2,7 +2,7 @@
   <div id="categories-select">
     <el-cascader
       :options="options"
-      @change="option(value)"
+      @change="option"
 
       change-on-select
       filterable
@@ -15,35 +15,7 @@ export default {
   data() {
     return {
       options: [
-        {
-          value: "zhinan",
-          label: "指南",
-          children: [
-            {
-              value: "shejiyuanze",
-              label: "设计原则",
-
-              children: [
-                {
-                  value: "yizhi",
-                  label: "一致"
-                },
-                {
-                  value: "fankui",
-                  label: "反馈"
-                },
-                {
-                  value: "xiaolv",
-                  label: "效率"
-                },
-                {
-                  value: "kekong",
-                  label: "可控"
-                }
-              ]
-            }
-          ]
-        }
+        
       ],
 
     };
@@ -52,6 +24,9 @@ export default {
   methods: {
     option(val) {
       console.log(val);
+      // this.selectData = val[val.length - 1]
+      this.$store.commit({type:'changeSelectData',amount:val[val.length - 1]})
+      console.log(this.$store.state.selectData);
     }
   },
   created() {

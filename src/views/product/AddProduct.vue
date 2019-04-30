@@ -57,7 +57,7 @@ export default {
     return {
       form: {
         name: "",
-        region: '2',
+        region:this.$store.state.selectData,
         color: "",
         price: "",
         num: '',
@@ -72,7 +72,7 @@ export default {
     */
     onSubmit(){
       var that = this.form
-      console.log(that)
+      console.log(that,this.$store.state.selectData)
       this.axios.post('/goods/storage',{
 
 
