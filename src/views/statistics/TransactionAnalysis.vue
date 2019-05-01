@@ -62,10 +62,347 @@ export default {
   },
   methods: {
     getToday() {
-      console.log("日期", this.value);
-      var mydate = new Date(),
-        time = mydate.getDate();
-      console.log("shijian", time);
+      var that = this;
+      // 计算时间戳
+      var timetamp = new Date().getTime();
+
+      var oneDay = 24 * 60 * 60 * 1000;
+
+      var num = timetamp + oneDay;
+
+      var time = new Date(num)
+        .toLocaleString("chanese", { hour12: false })
+        .split("/")
+        .join("-");
+      console.log(time);
+
+      console.log(
+        new Date()
+          .toLocaleString("chanese", { hour12: false })
+          .split("/")
+          .join("-")
+      );
+      //计算开始时间
+      var timeYear = new Date().getFullYear();
+      var timeMonth = new Date().getMonth() + 1;
+      var timeDay = new Date().getDate();
+      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
+      console.log(timeYear, timeMonth, timeDay, startTime);
+
+      // 给data里的开始时间赋值
+      that.startTime = startTime;
+      this.axios
+        .get("/shoppingmall/survey/senven", {
+          params: {
+            screeningStartTime: that.startTime,
+            screeningEndTime: new Date()
+              .toLocaleString("chanese", { hour12: false })
+              .split("/")
+              .join("-")
+          }
+        })
+        .then(res => {
+          console.log(res);
+
+          // 处理从数据库获取的时间及数据 并给data赋值
+          // that.xval = 1;
+          // that.yval = 2;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.getElementById("myChart"));
+      // 绘制图表
+      myChart.setOption({
+        title: { text: "商城概况" },
+        tooltip: {
+          // trigger: "axis"
+        },
+        xAxis: {
+          type: "category",
+          // show:ture,
+          data: that.xval
+        },
+        yAxis: {
+          type: "value",
+          data: [100, 200, 300, 400, 500, 600]
+        },
+        series: [
+          {
+            name: "金额",
+            type: "line",
+            data: that.yval
+          }
+        ]
+      });
+    },
+    getYearstoday() {
+      var that = this;
+      // 计算时间戳
+      var timetamp = new Date().getTime();
+
+      var oneDay = 24 * 60 * 60 * 1000;
+
+      var num = timetamp + oneDay;
+
+      var time = new Date(num)
+        .toLocaleString("chanese", { hour12: false })
+        .split("/")
+        .join("-");
+      console.log(time);
+
+      var twoDay = 2 * 24 * 60 * 60 * 1000;
+      var num2 = timetamp - twoDay;
+
+      var time2 = new Date(num2);
+
+      // 赋值
+      that.endTime = time2;
+      console.log(time2);
+
+      //计算开始时间
+      var timeYear = new Date().getFullYear();
+      var timeMonth = new Date().getMonth() + 1;
+      var timeDay = new Date().getDate();
+      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
+
+      //计算结束时间
+      var timeYear2 = time2.getFullYear();
+      var timeMonth2 = time2.getMonth() + 1;
+      var timeDay2 = time2.getDate();
+      var startTime2 =
+        timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 00:00:00";
+      console.log(startTime2);
+      // var startTime = timeYear + "-" + timeMonth + "-" + timeDay ;
+      console.log(startTime);
+      var endStartTime = Number(startTime);
+      console.log(endStartTime);
+      console.log(timeYear, timeMonth, timeDay, startTime);
+
+      // 给data里的开始时间赋值 在这里是筛选结束时间
+      that.startTime = startTime;
+
+      this.axios
+        .get("/shoppingmall/survey/senven", {
+          params: {
+            screeningStartTime: that.endTime,
+            screeningEndTime: that.startTime
+          }
+        })
+        .then(res => {
+          console.log(res);
+
+          // 处理从数据库获取的时间及数据 并给data赋值
+          that.xval = 1;
+          that.yval = 2;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.getElementById("myChart"));
+      // 绘制图表
+      myChart.setOption({
+        title: { text: "商城概况" },
+        tooltip: {
+          // trigger: "axis"
+        },
+        xAxis: {
+          type: "category",
+          // show:ture,
+          data: that.xval
+        },
+        yAxis: {
+          type: "value",
+          data: [200, 400, 600, 800, 1000, 1200, 1400, 1600]
+        },
+        series: [
+          {
+            name: "金额",
+            type: "line",
+            data: that.yval
+          }
+        ]
+      });
+    },
+    getSeven() {
+      var that = this;
+      // 计算时间戳
+      var timetamp = new Date().getTime();
+
+      var oneDay = 24 * 60 * 60 * 1000;
+
+      var num = timetamp + oneDay;
+
+      var time = new Date(num)
+        .toLocaleString("chanese", { hour12: false })
+        .split("/")
+        .join("-");
+      console.log(time);
+
+      var sevenDay = 7 * 24 * 60 * 60 * 1000;
+      var num2 = timetamp - sevenDay;
+
+      var time2 = new Date(num2);
+
+      // 赋值
+      that.endTime = time2;
+      console.log(time2);
+
+      //计算开始时间
+      var timeYear = new Date().getFullYear();
+      var timeMonth = new Date().getMonth() + 1;
+      var timeDay = new Date().getDate();
+      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
+
+      //计算结束时间
+      var timeYear2 = time2.getFullYear();
+      var timeMonth2 = time2.getMonth() + 1;
+      var timeDay2 = time2.getDate();
+      var startTime2 =
+        timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 00:00:00";
+      console.log(startTime2);
+      // var startTime = timeYear + "-" + timeMonth + "-" + timeDay ;
+      console.log(startTime);
+      var endStartTime = Number(startTime);
+      console.log(endStartTime);
+      console.log(timeYear, timeMonth, timeDay, startTime);
+
+      // 给data里的开始时间赋值 在这里是筛选结束时间
+      that.startTime = startTime;
+
+      this.axios
+        .get("/shoppingmall/survey/senven", {
+          params: {
+            screeningStartTime: that.endTime,
+            screeningEndTime: that.startTime
+          }
+        })
+        .then(res => {
+          console.log(res);
+
+          // 处理从数据库获取的时间及数据 并给data赋值
+          that.xval = 1;
+          that.yval = 2;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.getElementById("myChart"));
+      // 绘制图表
+      myChart.setOption({
+        title: { text: "商城概况" },
+        tooltip: {
+          // trigger: "axis"
+        },
+        xAxis: {
+          type: "category",
+          // show:ture,
+          data: that.xval
+        },
+        yAxis: {
+          type: "value",
+          data: [200, 400, 600, 800, 1000, 1200, 1400, 1600]
+        },
+        series: [
+          {
+            name: "金额",
+            type: "line",
+            data: that.yval
+          }
+        ]
+      });
+    },
+    getMonth() {
+      var that = this;
+      // 计算时间戳
+      var timetamp = new Date().getTime();
+
+      var oneDay = 24 * 60 * 60 * 1000;
+
+      var num = timetamp + oneDay;
+
+      var time = new Date(num)
+        .toLocaleString("chanese", { hour12: false })
+        .split("/")
+        .join("-");
+      console.log(time);
+
+      var monthDay = 30 * 24 * 60 * 60 * 1000;
+      var num2 = timetamp - monthDay;
+
+      var time2 = new Date(num2);
+
+      // 赋值
+      that.endTime = time2;
+      console.log(time2);
+
+      //计算开始时间
+      var timeYear = new Date().getFullYear();
+      var timeMonth = new Date().getMonth() + 1;
+      var timeDay = new Date().getDate();
+      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
+
+      //计算结束时间
+      var timeYear2 = time2.getFullYear();
+      var timeMonth2 = time2.getMonth() + 1;
+      var timeDay2 = time2.getDate();
+      var startTime2 =
+        timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 00:00:00";
+      console.log(startTime2);
+      // var startTime = timeYear + "-" + timeMonth + "-" + timeDay ;
+      console.log(startTime);
+      var endStartTime = Number(startTime);
+      console.log(endStartTime);
+      console.log(timeYear, timeMonth, timeDay, startTime);
+
+      // 给data里的开始时间赋值 在这里是筛选结束时间
+      that.startTime = startTime;
+
+      this.axios
+        .get("/shoppingmall/survey/senven", {
+          params: {
+            screeningStartTime: that.endTime,
+            screeningEndTime: that.startTime
+          }
+        })
+        .then(res => {
+          console.log(res);
+
+          // 处理从数据库获取的时间及数据 并给data赋值
+          that.xval = 1;
+          that.yval = 2;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.getElementById("myChart"));
+      // 绘制图表
+      myChart.setOption({
+        title: { text: "商城概况" },
+        tooltip: {
+          // trigger: "axis"
+        },
+        xAxis: {
+          type: "category",
+          // show:ture,
+          data: that.xval
+        },
+        yAxis: {
+          type: "value",
+          data: [200, 400, 600, 800, 1000, 1200, 1400, 1600]
+        },
+        series: [
+          {
+            name: "金额",
+            type: "line",
+            data: that.yval
+          }
+        ]
+      });
     },
     getYearstoday() {},
     getSeven() {},
