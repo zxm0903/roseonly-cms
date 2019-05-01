@@ -7,7 +7,7 @@
           <input type="button" value="今日" @click="getToday">
           <input type="button" value="昨日" @click="getYearstoday">
           <input type="button" value="最近7日" @click="getSeven">
-          <input type="button" value="本月" @click="getMonth">
+          <input type="button" value="最近30天" @click="getMonth">
         </div>
         <div class="right">
           <span style="margin-right:15px">选择日期</span>
@@ -60,10 +60,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <!-- 分页器
-      <div class="block">
-        <el-pagination background layout="prev, pager, next" :total="totalpcsData"></el-pagination>
-      </div>-->
     </template>
     <!-- 分页器 -->
     <div class="block">
@@ -114,11 +110,10 @@ export default {
     };
   },
   methods: {
-    change(){
-     
-       var that = this;
+    change() {
+      var that = this;
       this.axios
-        .get(" /goods/statistics/specific", {
+        .get("/goods/statistics/specific", {
           params: {
             screeningStartTime: new Date()
               .toLocaleString("chanese", { hour12: false })
@@ -180,6 +175,69 @@ export default {
     },
     getSeven() {
       var that = this;
+      // 计算时间戳
+      var timetamp = new Date().getTime();
+
+      var oneDay = 24 * 60 * 60 * 1000;
+
+      var num = timetamp + oneDay;
+
+      var time = new Date(num)
+        .toLocaleString("chanese", { hour12: false })
+        .split("/")
+        .join("-");
+      console.log(time);
+
+      var sevenDay = 7 * 24 * 60 * 60 * 1000;
+      var num2 = timetamp - sevenDay;
+
+      var time2 = new Date(num2);
+
+      // 赋值
+      that.endTime = time2;
+      console.log(time2);
+
+      //计算开始时间
+      var timeYear = new Date().getFullYear();
+      var timeMonth = new Date().getMonth() + 1;
+      var timeDay = new Date().getDate();
+      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
+
+      //计算结束时间
+      var timeYear2 = time2.getFullYear();
+      var timeMonth2 = time2.getMonth() + 1;
+      var timeDay2 = time2.getDate();
+      var startTime2 =
+        timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 00:00:00";
+      console.log(startTime2);
+      // var startTime = timeYear + "-" + timeMonth + "-" + timeDay ;
+      console.log(startTime);
+      var endStartTime = Number(startTime);
+      console.log(endStartTime);
+      console.log(timeYear, timeMonth, timeDay, startTime);
+
+      // 给data里的开始时间赋值 在这里是筛选结束时间
+      that.startTime = startTime;
+
+      this.axios
+        .get("/goods/statistics/all", {
+          params: {
+            screeningStartTime: that.endTime,
+            screeningEndTime: that.startTime
+          }
+        })
+        .then(res => {
+          console.log(res);
+
+          // that.tableData.name = res.....
+          // that.tableData.pageView = res...
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getMonth() {
+      var that = this;
       this.axios
         .get("/goods/statistics/all", {
           params: {
@@ -198,24 +256,6 @@ export default {
         .catch(error => {
           console.log(error);
         });
-    },
-    getMonth() {
-       var that = this;
-      this.axios.get("/goods/statistics/all", {
-        params: {
-          screeningStartTime: new Date()
-            .toLocaleString("chanese", { hour12: false })
-            .split("/")
-            .join("-")
-        }
-      }).then(res=>{
-        console.log(res)
-
-        // that.tableData.name = res.....
-        // that.tableData.pageView = res...
-      }).catch(error=>{
-        console.log(error)
-      })
     },
     look(index, row) {
       console.log(index, row);
