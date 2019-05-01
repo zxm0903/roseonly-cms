@@ -22,7 +22,7 @@ export default {
       let data = JSON.parse(e.data.split('\\').join(''))
       that.$notify({
         title: "系统消息",
-        message:"您有新的订单",
+        message:"您有新的订单待处理",
         duration: 0
       });
       // e.data.split('/').join('')

@@ -13,7 +13,7 @@
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="dialog.bool = false">取 消</el-button>
-      <el-button type="primary" @click="consign(dialog.row.id)">确认发货</el-button>
+      <el-button type="primary" @click="consign(dialog.row.orderDetailId)">确认发货</el-button>
     </span>
   </el-dialog>
 </template>
@@ -42,7 +42,12 @@ export default {
     },
     consign(id){
       let that = this
-      // this.axios.
+      this.axios.post('/orders/delivery/'+ id,{
+        admin:1
+      })
+      .then(res => {
+        console.log(res)
+      })
     }
   }
 };

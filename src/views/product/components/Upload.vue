@@ -2,14 +2,13 @@
   <div id="upload">
     <el-upload
       ref="upload"
-      action="string"
+      action="http://172.16.7.81:8080/goods/picture/upload"
       list-type="picture-card"
-    
-      :http-request="imgupload"
+      :on-success="imgres"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove"
-      :auto-upload="false"
       :data="imgdata"
+      name="file"
     >
       <i class="el-icon-plus"></i>
     </el-upload>
@@ -47,37 +46,36 @@ export default {
       this.$refs.upload.submit();
       console.log(this.dialogImageUrl);
     },
-    imgupload(a) {
-      // let config = {
-      //   headers: { "Content-Type": "multipart/form-data" }
-      // };
-      // console.log("456", a.file);
-      // var imgFile = e.target.files[0];
-      let formdate = new FormData();
-
-      formdate.append("file", a.file);
-      // console.log(formdate.get("file"));
-
-      // formdate.append("picName", a.file.name);
-      // formdate.append("picCode", "1");
-      // formdate.append("picLinkUrl", "");
-
-      console.log(a.file.name);
-
-      this.axios
-        .post("/goods/picture/upload", formdate)
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log("1110", formdate, err);
-        });
-
-      
-      
-
-     
+    imgres(response, file, fileList) {
+      console.log(response);
     }
+    // imgupload(a) {
+    //   // let config = {
+    //   //   headers: { "Content-Type": "multipart/form-data" }
+    //   // };
+    //   // console.log("456", a.file);
+    //   // var imgFile = e.target.files[0];
+    //   let formdate = new FormData();
+
+    //   formdate.append("file", a.file);
+    //   // console.log(formdate.get("file"));
+
+    //   // formdate.append("picName", a.file.name);
+    //   // formdate.append("picCode", "1");
+    //   // formdate.append("picLinkUrl", "");
+
+    //   console.log(a.file.name);
+
+    //   this.axios
+    //     .post("/goods/picture/upload", formdate)
+    //     .then(res => {
+    //       console.log(res);
+    //     })
+    //     .catch(err => {
+    //       console.log("1110", formdate, err);
+    //     });
+
+    // }
   }
 };
 </script>

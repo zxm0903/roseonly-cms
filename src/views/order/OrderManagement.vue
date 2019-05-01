@@ -1,5 +1,6 @@
 <template>
   <div id="ordermangement">
+    <el-button @click="gettui">退换货列表</el-button>
     <el-table
       :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
       style="width: 100%"
@@ -13,7 +14,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" width="30"></el-table-column>
       <el-table-column label="订单编号" prop="orderDetailId"></el-table-column>
       <el-table-column label="买家" prop="user.username"></el-table-column>
       <el-table-column label="联系方式" prop="user.cellphone"></el-table-column>
@@ -31,6 +32,18 @@
             type="danger"
             @click="consignment(scope.$index,scope.row)"
           >发货</el-button>
+          <el-button
+            size="mini"
+            v-if="scope.row.orderDetailStatus == '换货'"
+            type="danger"
+            @click="huanhuo(scope.row)"
+          >同意换货</el-button>
+          <el-button
+            size="mini"
+            v-if="scope.row.orderDetailStatus == '退货'"
+            type="danger"
+            @click="tuihuo(scope.row)"
+          >同意退货</el-button>
           <!-- <el-button size="mini" type="success">打印订单</el-button> -->
         </template>
       </el-table-column>
@@ -73,8 +86,43 @@ export default {
     handleEdit(row) {
       this.isdetail.bool = true;
       this.isdetail.row = row;
-      console.log(this.isdetail.row);
-    }
+    },
+    gettui() {
+      this.axios
+        .get("/orders/returns/all/list",{
+          params:{
+            admin:12
+          }
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    huanhuo(row){
+      this.axios.post('/orders/returns/agreement',{
+        admin:1,
+        orderDetailIds:row.orderDetailId,
+        method:1,
+        dealMethod:1
+      })
+      .then(res => {
+        console.log(res)
+      })
+    },
+     tuihuo(row){
+      this.axios.post('/orders/returns/agreement',{
+        admin:1,
+        orderDetailIds:row.orderDetailId,
+        method:2,
+        dealMethod:1
+      })
+      .then(res => {
+        console.log(res)
+      })
+    },
   },
   created() {
     let that = this;
