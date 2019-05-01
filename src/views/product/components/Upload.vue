@@ -3,19 +3,26 @@
     <el-upload
       ref="upload"
       action="http://172.16.7.81:8080/goods/picture/upload"
-      list-type="picture-card"
+
+      drag
+      class="upload-demo"
+      show-file-list="false"
       :on-success="imgres"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove"
       :data="imgdata"
       name="file"
     >
-      <i class="el-icon-plus"></i>
+      <i class="el-icon-upload"></i>
+      <div class="el-upload__text">
+        将文件拖到此处，或
+        <em>点击上传</em>
+      </div>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
       <img width="100%" :src="dialogImageUrl" alt>
     </el-dialog>
-    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+
     <!-- <el-button style="margin-left: 10px;" size="small" type="success" @click="abort">取消</el-button> -->
   </div>
 </template>
@@ -42,40 +49,10 @@ export default {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
-    submitUpload() {
-      this.$refs.upload.submit();
-      console.log(this.dialogImageUrl);
-    },
+
     imgres(response, file, fileList) {
       console.log(response);
     }
-    // imgupload(a) {
-    //   // let config = {
-    //   //   headers: { "Content-Type": "multipart/form-data" }
-    //   // };
-    //   // console.log("456", a.file);
-    //   // var imgFile = e.target.files[0];
-    //   let formdate = new FormData();
-
-    //   formdate.append("file", a.file);
-    //   // console.log(formdate.get("file"));
-
-    //   // formdate.append("picName", a.file.name);
-    //   // formdate.append("picCode", "1");
-    //   // formdate.append("picLinkUrl", "");
-
-    //   console.log(a.file.name);
-
-    //   this.axios
-    //     .post("/goods/picture/upload", formdate)
-    //     .then(res => {
-    //       console.log(res);
-    //     })
-    //     .catch(err => {
-    //       console.log("1110", formdate, err);
-    //     });
-
-    // }
   }
 };
 </script>

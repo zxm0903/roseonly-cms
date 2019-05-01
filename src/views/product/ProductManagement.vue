@@ -219,6 +219,11 @@ export default {
       })
       .catch(err => {
         console.log("请求失败", err);
+         that.$message({
+          showClose: true,
+          message: '服务请求错误',
+          type: 'warning'
+        });
       });
   }
 };
