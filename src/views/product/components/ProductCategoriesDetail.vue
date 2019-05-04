@@ -37,23 +37,29 @@ export default {
   components: {
     CateoriesSelect
   },
+  computed: {
+    change() {
+      return this.$store.state.selectData;
+    }
+  },
   methods: {
     onSubmit() {
       var that = this;
       this.axios
-      .post('/goods/classify/add',{
-          goodsTypeName:that.sizeForm.name,
-          goodsTypeSuperior:2
-      })
-      .then(res=>{
+        .post("/goods/classify/add", {
+          goodsTypeName: that.sizeForm.name,
+          goodsTypeSuperior: that.change
+        })
+        .then(res => {
           console.log(res);
-          alert('添加成功')
-       
-
-      })
-      .catch((error)=>{
-          console.log(error)
-      })
+          // alert("添加成功");
+          if(res.data.code == 200){
+            location.reload()
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     handleClose(done) {
       done();

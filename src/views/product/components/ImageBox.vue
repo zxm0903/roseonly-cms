@@ -16,7 +16,7 @@
         >
           <el-checkbox-button class="check-btn" :label="o">
             <el-card class="card-box" :body-style="{ padding: '0px' }">
-              <img :src="'http://172.16.7.81:8080/' + o.adminPicFileUrl" class="image">
+              <img :src="'http://172.16.7.76:8080/' + o.adminPicFileUrl" class="image">
 
             </el-card>
           </el-checkbox-button>

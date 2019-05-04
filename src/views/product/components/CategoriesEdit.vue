@@ -2,7 +2,7 @@
   <el-dialog title="提示" :visible.sync="edit.isedit" width="30%" :before-close="handleClose">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="分类名称">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.name" :placeholder="edit.editdata.label"></el-input>
       </el-form-item>
       <el-form-item label="父级分类">
         <CateoriesSelect></CateoriesSelect>
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       form: {
-        name: 'sc'
+        name: ''
       }
     };
   },
@@ -33,20 +33,31 @@ export default {
   components:{
     CateoriesSelect
   },
+  computed:{
+    change() {
+      return this.$store.state.selectData;
+    },
+  },
   methods: {
     onSubmit() {
       let that = this;
+      console.log(this.change)
       this.axios
-        .get("/goods/classify/edit", {
-          goodsTypeId: that.editdata.goodsTypeId
+        .post("/goods/classify/edit", {
+          goodsTypeId: that.edit.editdata.value,
+          goodsTypeName:that.form.name,
+          goodsTypeSuperior:that.change
         })
         .then(res => {
           console.log(res);
-          that.edit.isedit = false;
+          if(res.data.code == 200){
+            location.reload()
+          }
         })
         .catch(err => {
           console.log("请求失败", err);
         });
+        // this.edit.isedit = false;
     },
       handleClose(done) {
       done();

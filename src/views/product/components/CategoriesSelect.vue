@@ -40,8 +40,8 @@ export default {
           });
         });
         // that.buildTree(list);
-        DataToTree(list);
-        console.log(list, DataToTree(list));
+        list = DataToTree(list);
+        console.log(list);
         that.options = list;
       })
       .catch(err => {

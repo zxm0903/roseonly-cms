@@ -70,7 +70,7 @@ h1 {
   border-bottom: 1px solid #caced4;
 }
 .el-aside {
-  background-color: #262d3a;
+  /* background-color: #262d3a; */
   color: #9dacc2;
   text-align: center;
   margin: 0;

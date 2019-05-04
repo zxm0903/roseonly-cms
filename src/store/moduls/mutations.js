@@ -15,5 +15,14 @@ export default {
   },
   changeimgdata(state,data){
     state.imgdatas = data
+  },
+  changeiseditgoods(state,bool){
+    state.iseditgoods = bool
+  },
+  changedetailsimgs(state,data){
+    state.detailsimgs = data
+  },
+  changeisimg(state,data){
+    state.isimg = data
   }
 }
