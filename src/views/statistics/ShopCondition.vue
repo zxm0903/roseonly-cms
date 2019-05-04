@@ -186,9 +186,11 @@ export default {
           this.payGoodsCount = res.data.data.goodsNumCount;
 
           // 处理从数据库获取的时间及数据 并给data赋值
-          // that.xval = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00];
-          // that.yval = [2,4,6];
-        })
+          that.xval = [2,4,6,8,10,12,14,16,18,20,22,24];
+          that.yval = [0,0,0,0,0,0,300,that.payMoney-300];
+          that.drawLine(); 
+          })
+       
         .catch(error => {
           console.log(error);
         });
@@ -231,9 +233,10 @@ export default {
           this.payBuyer = res.data.data.userCount;
           this.payGoodsCount = res.data.data.goodsNumCount;
 
-          // 处理从数据库获取的时间及数据 并给data赋值
-          // that.xval = 1;
-          // that.yval = 2;
+           // 处理从数据库获取的时间及数据 并给data赋值
+          that.xval = [1,2,3,4,5,6,7];
+          that.yval = [0,0,0,300,that.payMoney-300];
+          that.drawLine();
         })
         .catch(error => {
           console.log(error);
@@ -253,7 +256,7 @@ export default {
         },
         yAxis: {
           type: "value",
-          data: [200, 400, 600, 800, 1000, 1200, 1400, 1600]
+          data: [2000, 4000, 6000, 8000, 10000, 12000, 14000, 16000]
         },
         series: [
           {
@@ -302,38 +305,18 @@ export default {
           this.payBuyer = res.data.data.userCount;
           this.payGoodsCount = res.data.data.goodsNumCount;
 
+
+
+
           // 处理从数据库获取的时间及数据 并给data赋值
-          that.xval = 1;
-          that.yval = 2;
-        })
+          that.xval = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+          that.yval = [0,0,0,0,0,0,2400,that.payMoney-2400];
+          that.drawLine();
+          })
         .catch(error => {
           console.log(error);
         });
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
-      // 绘制图表
-      myChart.setOption({
-        title: { text: "商城概况" },
-        tooltip: {
-          // trigger: "axis"
-        },
-        xAxis: {
-          type: "category",
-          // show:ture,
-          data: that.xval
-        },
-        yAxis: {
-          type: "value",
-          data: [200, 400, 600, 800, 1000, 1200, 1400, 1600]
-        },
-        series: [
-          {
-            name: "金额",
-            type: "line",
-            data: that.yval
-          }
-        ]
-      });
+    
     },
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
@@ -364,7 +347,7 @@ export default {
     },
     change() {
       var that = this;
-      var value = this.value;
+      var value = that.value;
       console.log(value[0]);
       //开始时间
       var startTime = new Date(value[0]).format("yyyy-MM-dd hh:mm:ss");
@@ -375,7 +358,7 @@ export default {
       that.endTime = endTime;
 
       this.axios
-        .get("/shoppingmall/survey/specific", {
+        .get("/shoppingmall/survey/seven", {
           params: {
             screeningStartTime: that.startTime,
             screeningEndTime: that.endTime
@@ -388,7 +371,13 @@ export default {
           this.payOrder = res.data.data.count;
           this.payBuyer = res.data.data.userCount;
           this.payGoodsCount = res.data.data.goodsNumCount;
-          console.log(res);
+          
+
+
+           // 处理从数据库获取的时间及数据 并给data赋值
+          that.xval = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+          that.yval = [0,0,0,0,0,0,2400,that.payMoney-2400];
+          that.drawLine();
         })
         .catch(error => {
           console.log(error);
