@@ -1,9 +1,9 @@
 <template>
-  <el-dialog title="添加商品图片" :visible.sync="isupload" fullscreen="false" :before-close="handleClose">
+  <el-dialog title="添加商品图片" :visible="isuploads" fullscreen="false" :before-close="close">
     <span class="big-body-upload">
       <Upload></Upload>
     </span>
-    <el-checkbox-group class="clearfix" v-model="checkList" @change="connn">
+    <el-checkbox-group class="clearfix" v-model="checkList">
       <el-row>
         <el-col
           :xs="12"
@@ -14,15 +14,10 @@
           :key="o"
           :offset="index > 0 ? 0 : 0"
         >
-          <el-checkbox-button class="check-btn" :label="o.adminPicId">
+          <el-checkbox-button class="check-btn" :label="o">
             <el-card class="card-box" :body-style="{ padding: '0px' }">
               <img :src="'http://172.16.7.81:8080/' + o.adminPicFileUrl" class="image">
 
-              <!-- <div style="padding: 8px;">
-                <div class="bottom clearfix">
-                  <span>好吃的汉堡</span>
-                </div>
-              </div>-->
             </el-card>
           </el-checkbox-button>
         </el-col>
@@ -30,8 +25,8 @@
     </el-checkbox-group>
 
     <span slot="footer" class="dialog-footer">
-      <el-button @click="isupload = false">取 消</el-button>
-      <el-button type="primary" @click="isupload = false">确 定</el-button>
+      <el-button @click="close">取 消</el-button>
+      <el-button type="primary" @click="connn">确 定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -41,26 +36,41 @@ export default {
   data() {
     return {
       checkList: [],
-      imgdatas: []
+      // imgdatas: []
     };
   },
-  props: ["isupload"],
+  // props: ["isuploads"],
   components: {
     Upload
   },
+  computed:{
+  isuploads(){
+    return this.$store.state.isuploads
+  },
+  imgdatas(){
+    return this.$store.state.imgdatas
+  }
+  },
   methods: {
     handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
+      // this.$confirm("确认关闭？")
+      //   .then(_ => {
+          done()
+          this.isuploads = false
+        // })
+        // .catch(_ => {});
     },
     connn() {
-      console.log(this.checkList);
+      // this.isuploads = false
+      console.log(123,this.checkList);
       this.$store.commit("changecheckimgs", this.checkList);
-      this.$store.getters.doneimages
-    }
+      // this.$store.getters.doneimages
+      this.$store.commit("changeisuploads",false);
+    },
+    close(done){
+      this.$store.commit("changeisuploads",false);
+    },
+  
   },
   created() {
     let that = this;
@@ -68,7 +78,8 @@ export default {
       .get("/goods/adminPic")
       .then(res => {
         console.log(res);
-        that.imgdatas = res.data.data;
+        this.$store.commit('changeimgdata',res.data.data)
+        // that.imgdatas = res.data.data;
       })
       .catch(err => {
         console.log(err);

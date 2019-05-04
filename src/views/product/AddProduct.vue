@@ -13,7 +13,9 @@
           <el-form-item label="产品分类">
             <CateoriesSelect></CateoriesSelect>
           </el-form-item>
-
+          <el-form-item label="产品规格">
+            <el-input v-model="form.specs"></el-input>
+          </el-form-item>
           <el-form-item label="产品颜色">
             <el-input v-model="form.color"></el-input>
           </el-form-item>
@@ -35,14 +37,31 @@
         </el-form>
       </el-col>
       <el-col :xs="24" :sm="16">
+        <!-- <h3>添加商品图片</h3> -->
         <el-button @click="uploadimg" type="primary">
           添加图片
           <i class="el-icon-upload el-icon--right"></i>
         </el-button>
-        <span>{{changecheckimgs}}{{form.adminPicIds}}</span>
+        <el-col
+          :xs="12"
+          :sm="6"
+          :md="4"
+          :lg="3"
+          v-for="(o, index) in changecheckimgs"
+          :key="o"
+          :offset="index > 0 ? 0 : 0"
+        >
+          <!-- <el-checkbox-button class="check-btn" :label="o"> -->
+            <el-card class="card-box" :body-style="{ padding: '0px' }">
+              <img :src="'http://172.16.7.81:8080/' + o.adminPicFileUrl" class="image">
+            </el-card>
+          <!-- </el-checkbox-button> -->
+        </el-col>
+
+        <!-- <span>{{changecheckimgs}}{{form.adminPicIds}}</span> -->
       </el-col>
     </el-row>
-    <ImageBox :isupload="isupload"></ImageBox>
+    <ImageBox></ImageBox>
   </div>
 </template>
 <script>
@@ -64,12 +83,12 @@ export default {
         price: "",
         num: "",
         detail: "",
-        specs: "80cm",
-        adminPicIds: this.changecheckimgs,
+        specs: "",
+
         picCodes: "2,2,2",
         resource: 0
       },
-      isupload: false,
+      isuploads: false,
       checkimgs: []
     };
   },
@@ -78,9 +97,15 @@ export default {
       return this.$store.state.selectData;
     },
     changecheckimgs() {
-      return this.$store.state.checkimgs.join(",");
+      return this.$store.state.checkimgs;
     },
+    imagescode() {
+      let long = this.$store.state.checkimgs.map((el, i) => {
+        return 2;
+      });
 
+      return long.join(",");
+    },
     selectData() {
       return this.$store.state.selectData;
     }
@@ -91,8 +116,10 @@ export default {
      */
     onSubmit() {
       var that = this.form,
-        imgs = this.changecheckimgs,
-        slect = this.selectData;
+        imgs = this.changecheckimgs.join(","),
+        // code = imgs.length;
+        slect = this.selectData,
+        code = this.imagescode;
       console.log(that, this.$store.state.selectData);
       this.axios
         .post("/goods/storage", {
@@ -104,12 +131,18 @@ export default {
           goodsSpecs: that.specs,
           goodsTypeId: slect,
           adminPicIds: imgs,
-          picCodes: that.picCodes,
+          picCodes: code,
           goodsGroundingStatus: that.resource
         })
         .then(res => {
           console.log("请求成功", res);
           console.log(that.name);
+          // if (res.state == 200) {
+          this.$message({
+            message: res.data.message,
+            type: "success"
+          });
+          // }
         })
         .catch(err => {
           console.log("请求失败", err);
@@ -117,7 +150,10 @@ export default {
     },
 
     uploadimg() {
-      this.isupload = true;
+      //  console.log(this.isuploads);
+      this.$store.commit("changeisuploads", true);
+      // this.changeisuploads = true;
+      // console.log(this.isuploads);
     }
   }
 };

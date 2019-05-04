@@ -52,6 +52,7 @@ export default {
 
     imgres(response, file, fileList) {
       console.log(response);
+      this.$store.commit('pushimgdata',response.data)
     }
   }
 };

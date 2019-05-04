@@ -1,6 +1,8 @@
 export default {
    selectData:'',
-   checkimgs:[]
+   checkimgs:[],
+   isuploads:false,
+   imgdatas:[],
   }
 
   
