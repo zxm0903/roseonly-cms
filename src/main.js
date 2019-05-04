@@ -5,6 +5,7 @@ import store from '@/store/index'
 import ElementUI from 'element-ui'
 import '@/assets/index.css'
 import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/formatData.js'
 
 import echarts from 'echarts'
 
@@ -16,7 +17,7 @@ Vue.use(ElementUI);
 import axios from 'axios'
 Vue.prototype.axios = axios
 // Vue.prototype.$http = axios
-axios.defaults.baseURL = 'http://172.16.7.81:8080'
+axios.defaults.baseURL = 'http://172.16.7.83:8080'
 // axios.defaults.headers = {'X-Custom-Header': 'foobar'}
 // axios.defaults.headers.common['Authorization'] = 'Bearer ';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

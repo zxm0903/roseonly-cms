@@ -9,14 +9,12 @@
         <input type="button" value="最近30天" @click="getMonth">
       </div>
       <div class="right">
-        <span style="margin-right:15px">选择日期</span>
-        <span>{{value}}</span>
         <el-date-picker
           v-model="value"
           type="daterange"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
-          default-value="2010-10-01"
+          default-value="2019-05-05"
           @change="change"
         ></el-date-picker>
       </div>
@@ -67,11 +65,6 @@ export default {
   },
   methods: {
     getToday() {
-      // 该页面的数据
-      // this.payMoney = res.data....
-      // this.payOrder = res.data...
-      // this.payBuyer = res.data...
-      // this.payGoodsCount = res.data...
       var that = this;
       // 计算时间戳
       var timetamp = new Date().getTime();
@@ -96,6 +89,12 @@ export default {
       var timeYear = new Date().getFullYear();
       var timeMonth = new Date().getMonth() + 1;
       var timeDay = new Date().getDate();
+      if (timeMonth < 10) {
+        timeMonth = "0" + timeMonth;
+      }
+      if (timeDay < 10) {
+        timeDay = "0" + timeDay;
+      }
       var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
       console.log(timeYear, timeMonth, timeDay, startTime);
 
@@ -105,61 +104,34 @@ export default {
         .get("/shoppingmall/survey/senven", {
           params: {
             screeningStartTime: that.startTime,
-            screeningEndTime: new Date()
-              .toLocaleString("chanese", { hour12: false })
-              .split("/")
-              .join("-")
+            screeningEndTime: new Date().format("yyyy-MM-dd hh:mm:ss")
           }
         })
         .then(res => {
           console.log(res);
+          that.payMoney = res.data.data.totalPrice + " 元";
+          console.log(res.data.data.count);
+          that.payOrder = res.data.data.count;
+          that.payBuyer = res.data.data.userCount;
+          that.payGoodsCount = res.data.data.goodsNumCount;
 
           // 处理从数据库获取的时间及数据 并给data赋值
-          // that.xval = 1;
-          // that.yval = 2;
+          that.xval = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24];
+          that.yval = [0, 0, 0, 0, 0, 0, 300, that.payMoney - 300];
+          that.drawLine();
         })
         .catch(error => {
           console.log(error);
         });
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
-      // 绘制图表
-      myChart.setOption({
-        title: { text: "商城概况" },
-        tooltip: {
-          // trigger: "axis"
-        },
-        xAxis: {
-          type: "category",
-          // show:ture,
-          data: that.xval
-        },
-        yAxis: {
-          type: "value",
-          data: [100, 200, 300, 400, 500, 600]
-        },
-        series: [
-          {
-            name: "金额",
-            type: "line",
-            data: that.yval
-          }
-        ]
-      });
     },
     getYearstoday() {
-      // 该页面的数据
-      // this.payMoney = res.data....
-      // this.payOrder = res.data...
-      // this.payBuyer = res.data...
-      // this.payGoodsCount = res.data...
       var that = this;
       // 计算时间戳
       var timetamp = new Date().getTime();
 
       var oneDay = 24 * 60 * 60 * 1000;
 
-      var num = timetamp + oneDay;
+      var num = timetamp;
 
       var time = new Date(num)
         .toLocaleString("chanese", { hour12: false })
@@ -167,130 +139,81 @@ export default {
         .join("-");
       console.log(time);
 
-      var twoDay = 2 * 24 * 60 * 60 * 1000;
+      var twoDay = 24 * 60 * 60 * 1000;
       var num2 = timetamp - twoDay;
 
       var time2 = new Date(num2);
 
-      // 赋值
-      that.endTime = time2;
       console.log(time2);
 
-      //计算开始时间
-      var timeYear = new Date().getFullYear();
-      var timeMonth = new Date().getMonth() + 1;
-      var timeDay = new Date().getDate();
-      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
-
-      //计算结束时间
+      // 计算开始时间
       var timeYear2 = time2.getFullYear();
       var timeMonth2 = time2.getMonth() + 1;
       var timeDay2 = time2.getDate();
+      if (timeMonth2 < 10) {
+        timeMonth2 = "0" + timeMonth2;
+      }
+      if (timeDay2 < 10) {
+        timeDay2 = "0" + timeDay2;
+      }
       var startTime2 =
         timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 00:00:00";
       console.log(startTime2);
-      // var startTime = timeYear + "-" + timeMonth + "-" + timeDay ;
-      console.log(startTime);
-      var endStartTime = Number(startTime);
-      console.log(endStartTime);
-      console.log(timeYear, timeMonth, timeDay, startTime);
+      // 给data里的开始时间赋值 在这里是筛选开始时间
+      that.startTime = startTime2;
 
-      // 给data里的开始时间赋值 在这里是筛选结束时间
-      that.startTime = startTime;
+      // 计算结束时间
+      var endTime = timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 23:59:59";
+      console.log(endTime);
+      that.endTime = endTime;
+
+      console.log(that.startTime, that.endTime);
 
       this.axios
         .get("/shoppingmall/survey/senven", {
           params: {
-            screeningStartTime: that.endTime,
-            screeningEndTime: that.startTime
+            screeningStartTime: that.startTime,
+            screeningEndTime: that.endTime
           }
         })
         .then(res => {
           console.log(res);
 
+          this.payMoney = res.data.data.totalPrice + " 元";
+          console.log(res.data.data.count);
+          this.payOrder = res.data.data.count;
+          this.payBuyer = res.data.data.userCount;
+          this.payGoodsCount = res.data.data.goodsNumCount;
+
           // 处理从数据库获取的时间及数据 并给data赋值
-          that.xval = 1;
-          that.yval = 2;
+          // that.xval = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00];
+          // that.yval = [2,4,6];
         })
         .catch(error => {
           console.log(error);
         });
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
-      // 绘制图表
-      myChart.setOption({
-        title: { text: "商城概况" },
-        tooltip: {
-          // trigger: "axis"
-        },
-        xAxis: {
-          type: "category",
-          // show:ture,
-          data: that.xval
-        },
-        yAxis: {
-          type: "value",
-          data: [200, 400, 600, 800, 1000, 1200, 1400, 1600]
-        },
-        series: [
-          {
-            name: "金额",
-            type: "line",
-            data: that.yval
-          }
-        ]
-      });
     },
     getSeven() {
-      // 该页面的数据
-      // this.payMoney = res.data....
-      // this.payOrder = res.data...
-      // this.payBuyer = res.data...
-      // this.payGoodsCount = res.data...
       var that = this;
       // 计算时间戳
       var timetamp = new Date().getTime();
 
       var oneDay = 24 * 60 * 60 * 1000;
+      // 昨天该时间的时间戳
+      var num = timetamp - oneDay;
 
-      var num = timetamp + oneDay;
-
-      var time = new Date(num)
-        .toLocaleString("chanese", { hour12: false })
-        .split("/")
-        .join("-");
-      console.log(time);
-
+      // 7天时间的时间戳
       var sevenDay = 7 * 24 * 60 * 60 * 1000;
       var num2 = timetamp - sevenDay;
 
       var time2 = new Date(num2);
-
-      // 赋值
-      that.endTime = time2;
+      // 开始时间
       console.log(time2);
-
-      //计算开始时间
-      var timeYear = new Date().getFullYear();
-      var timeMonth = new Date().getMonth() + 1;
-      var timeDay = new Date().getDate();
-      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
-
-      //计算结束时间
-      var timeYear2 = time2.getFullYear();
-      var timeMonth2 = time2.getMonth() + 1;
-      var timeDay2 = time2.getDate();
-      var startTime2 =
-        timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 00:00:00";
-      console.log(startTime2);
-      // var startTime = timeYear + "-" + timeMonth + "-" + timeDay ;
-      console.log(startTime);
-      var endStartTime = Number(startTime);
-      console.log(endStartTime);
-      console.log(timeYear, timeMonth, timeDay, startTime);
-
-      // 给data里的开始时间赋值 在这里是筛选结束时间
-      that.startTime = startTime;
+      // 赋值
+      that.startTime = new Date(time2).format("yyyy-MM-dd hh:mm:ss");
+      console.log(that.startTime);
+      // 结束时间
+      that.endTime = new Date().format("yyyy-MM-dd hh:mm:ss");
 
       this.axios
         .get("/shoppingmall/survey/senven", {
@@ -301,10 +224,16 @@ export default {
         })
         .then(res => {
           console.log(res);
+          console.log(res);
+          this.payMoney = res.data.data.totalPrice + " 元";
+          console.log(res.data.data.count);
+          this.payOrder = res.data.data.count;
+          this.payBuyer = res.data.data.userCount;
+          this.payGoodsCount = res.data.data.goodsNumCount;
 
           // 处理从数据库获取的时间及数据 并给data赋值
-          that.xval = 1;
-          that.yval = 2;
+          // that.xval = 1;
+          // that.yval = 2;
         })
         .catch(error => {
           console.log(error);
@@ -336,65 +265,42 @@ export default {
       });
     },
     getMonth() {
-      // 该页面的数据
-      // this.payMoney = res.data....
-      // this.payOrder = res.data...
-      // this.payBuyer = res.data...
-      // this.payGoodsCount = res.data...
       var that = this;
       // 计算时间戳
       var timetamp = new Date().getTime();
 
       var oneDay = 24 * 60 * 60 * 1000;
+      // 昨天该时间的时间戳
+      var num = timetamp - oneDay;
 
-      var num = timetamp + oneDay;
-
-      var time = new Date(num)
-        .toLocaleString("chanese", { hour12: false })
-        .split("/")
-        .join("-");
-      console.log(time);
-
-      var monthDay = 30 * 24 * 60 * 60 * 1000;
-      var num2 = timetamp - monthDay;
+      // 30天时间的时间戳
+      var thirtyDay = 30 * 24 * 60 * 60 * 1000;
+      var num2 = timetamp - thirtyDay;
 
       var time2 = new Date(num2);
-
-      // 赋值
-      that.endTime = time2;
+      // 开始时间
       console.log(time2);
-
-      //计算开始时间
-      var timeYear = new Date().getFullYear();
-      var timeMonth = new Date().getMonth() + 1;
-      var timeDay = new Date().getDate();
-      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
-
-      //计算结束时间
-      var timeYear2 = time2.getFullYear();
-      var timeMonth2 = time2.getMonth() + 1;
-      var timeDay2 = time2.getDate();
-      var startTime2 =
-        timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 00:00:00";
-      console.log(startTime2);
-      // var startTime = timeYear + "-" + timeMonth + "-" + timeDay ;
-      console.log(startTime);
-      var endStartTime = Number(startTime);
-      console.log(endStartTime);
-      console.log(timeYear, timeMonth, timeDay, startTime);
-
-      // 给data里的开始时间赋值 在这里是筛选结束时间
-      that.startTime = startTime;
+      // 赋值
+      that.startTime = new Date(time2).format("yyyy-MM-dd hh:mm:ss");
+      console.log(that.startTime);
+      // 结束时间
+      that.endTime = new Date().format("yyyy-MM-dd hh:mm:ss");
 
       this.axios
         .get("/shoppingmall/survey/senven", {
           params: {
-            screeningStartTime: that.endTime,
-            screeningEndTime: that.startTime
+            screeningStartTime: that.startTime,
+            screeningEndTime: that.endTime
           }
         })
         .then(res => {
           console.log(res);
+          console.log(res);
+          this.payMoney = res.data.data.totalPrice + " 元";
+          console.log(res.data.data.count);
+          this.payOrder = res.data.data.count;
+          this.payBuyer = res.data.data.userCount;
+          this.payGoodsCount = res.data.data.goodsNumCount;
 
           // 处理从数据库获取的时间及数据 并给data赋值
           that.xval = 1;
@@ -430,70 +336,6 @@ export default {
       });
     },
     drawLine() {
-      var that = this;
-
-      var that = this;
-      // 计算时间戳
-      var timetamp = new Date().getTime();
-
-      var oneDay = 24 * 60 * 60 * 1000;
-
-      var num = timetamp + oneDay;
-
-      var time = new Date(num)
-        .toLocaleString("chanese", { hour12: false })
-        .split("/")
-        .join("-");
-      console.log(time);
-
-      var sevenDay = 7 * 24 * 60 * 60 * 1000;
-      var num2 = timetamp - sevenDay;
-
-      var time2 = new Date(num2);
-
-      // 赋值
-      that.endTime = time2;
-      console.log(time2);
-
-      //计算开始时间
-      var timeYear = new Date().getFullYear();
-      var timeMonth = new Date().getMonth() + 1;
-      var timeDay = new Date().getDate();
-      var startTime = timeYear + "-" + timeMonth + "-" + timeDay + " 00:00:00";
-
-      //计算结束时间
-      var timeYear2 = time2.getFullYear();
-      var timeMonth2 = time2.getMonth() + 1;
-      var timeDay2 = time2.getDate();
-      var startTime2 =
-        timeYear2 + "-" + timeMonth2 + "-" + timeDay2 + " 00:00:00";
-      console.log(startTime2);
-      // var startTime = timeYear + "-" + timeMonth + "-" + timeDay ;
-      console.log(startTime);
-      var endStartTime = Number(startTime);
-      console.log(endStartTime);
-      console.log(timeYear, timeMonth, timeDay, startTime);
-
-      // 给data里的开始时间赋值 在这里是筛选结束时间
-      that.startTime = startTime;
-
-      this.axios
-        .get("/shoppingmall/survey/senven", {
-          params: {
-            screeningStartTime: that.endTime,
-            screeningEndTime: that.startTime
-          }
-        })
-        .then(res => {
-          console.log(res);
-
-          // 处理从数据库获取的时间及数据 并给data赋值
-          that.xval = 1;
-          that.yval = 2;
-        })
-        .catch(error => {
-          console.log(error);
-        });
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       // 绘制图表
@@ -521,34 +363,31 @@ export default {
       });
     },
     change() {
-      // 该页面的数据
-      // this.payMoney = res.data....
-      // this.payOrder = res.data...
-      // this.payBuyer = res.data...
-      // this.payGoodsCount = res.data...
       var that = this;
       var value = this.value;
       console.log(value[0]);
       //开始时间
-      var startTime = value[0]
-        .toLocaleString("chanese", { hour12: false })
-        .split("/")
-        .join("-");
-
+      var startTime = new Date(value[0]).format("yyyy-MM-dd hh:mm:ss");
+      console.log(startTime);
+      that.startTime = startTime;
       // 结束时间
-      var endTime = value[1]
-        .toLocaleString("chanese", { hour12: false })
-        .split("/")
-        .join("-");
+      var endTime = new Date(value[1]).format("yyyy-MM-dd hh:mm:ss");
+      that.endTime = endTime;
 
       this.axios
         .get("/shoppingmall/survey/specific", {
           params: {
-            screeningStartTime: startTime,
-            screeningEndTime: endTime
+            screeningStartTime: that.startTime,
+            screeningEndTime: that.endTime
           }
         })
         .then(res => {
+          console.log(res);
+          this.payMoney = res.data.data.totalPrice + " 元";
+          console.log(res.data.data.count);
+          this.payOrder = res.data.data.count;
+          this.payBuyer = res.data.data.userCount;
+          this.payGoodsCount = res.data.data.goodsNumCount;
           console.log(res);
         })
         .catch(error => {
