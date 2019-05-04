@@ -8,7 +8,7 @@
       style="width: 100%"
     >
       <el-table-column type="selection" width="30"></el-table-column>
-      <el-table-column label="录入时间" prop="groudingTime"></el-table-column>
+      <el-table-column label="录入时间" prop="createTime"></el-table-column>
       <el-table-column label="产品名称" prop="goodsName"></el-table-column>
       <el-table-column label="分类名称" prop="goodsType.goodsTypeName"></el-table-column>
       <el-table-column label="价格" prop="goodsPrice"></el-table-column>
@@ -219,6 +219,11 @@ export default {
       })
       .catch(err => {
         console.log("请求失败", err);
+         that.$message({
+          showClose: true,
+          message: '服务请求错误',
+          type: 'warning'
+        });
       });
   }
 };

@@ -11,13 +11,11 @@
           </el-form-item>
 
           <el-form-item label="产品分类">
-            <!-- <el-select v-model="form.region" placeholder="请选择商品分类">
-              <el-option label="分类一" value="shanghai"></el-option>
-              <el-option label="分类二" value="beijing"></el-option>
-            </el-select>-->
             <CateoriesSelect></CateoriesSelect>
           </el-form-item>
-
+          <el-form-item label="产品规格">
+            <el-input v-model="form.specs"></el-input>
+          </el-form-item>
           <el-form-item label="产品颜色">
             <el-input v-model="form.color"></el-input>
           </el-form-item>
@@ -27,96 +25,137 @@
           <el-form-item label="产品库存">
             <el-input v-model="form.num"></el-input>
           </el-form-item>
+          <el-form-item label="是否上架">
+            <el-radio-group v-model="form.resource">
+              <el-radio-button label="1">上架</el-radio-button>
+              <el-radio-button label="0">下架</el-radio-button>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">立即创建</el-button>
-            <!-- <el-button>取消</el-button> -->
           </el-form-item>
-          <!-- <el-form-item>
-            <el-button type="primary" @click="onget">GET</el-button>
-            <el-button>取消</el-button>
-          </el-form-item> -->
         </el-form>
-        <el-button @click="getimgs">获取相册</el-button>
-        <img src="http://172.16.7.81:8080/uploadPath\picture\用户E-R图.jpg" alt="">
       </el-col>
       <el-col :xs="24" :sm="16">
-        <Upload></Upload>
+        <!-- <h3>添加商品图片</h3> -->
+        <el-button @click="uploadimg" type="primary">
+          添加图片
+          <i class="el-icon-upload el-icon--right"></i>
+        </el-button>
+        <el-col
+          :xs="12"
+          :sm="6"
+          :md="4"
+          :lg="3"
+          v-for="(o, index) in changecheckimgs"
+          :key="o"
+          :offset="index > 0 ? 0 : 0"
+        >
+          <!-- <el-checkbox-button class="check-btn" :label="o"> -->
+            <el-card class="card-box" :body-style="{ padding: '0px' }">
+              <img :src="'http://172.16.7.81:8080/' + o.adminPicFileUrl" class="image">
+            </el-card>
+          <!-- </el-checkbox-button> -->
+        </el-col>
+
+        <!-- <span>{{changecheckimgs}}{{form.adminPicIds}}</span> -->
       </el-col>
     </el-row>
+    <ImageBox></ImageBox>
   </div>
 </template>
 <script>
-import Upload from "@/views/product/components/Upload"
-import CateoriesSelect from "@/views/product/components/CategoriesSelect"
-// import axios from 
+import ImageBox from "@/views/product/components/ImageBox";
+import CateoriesSelect from "@/views/product/components/CategoriesSelect";
+// import axios from
 export default {
   name: "addproduct",
   components: {
-    Upload,
+    ImageBox,
     CateoriesSelect
   },
   data() {
     return {
       form: {
         name: "",
-        region:4,
+        region: this.selectData,
         color: "",
         price: "",
-        num: '',
-        detail:'',
-        specs:'80cm',
-        adminPicIds:'4,5,6',
-        picCodes:'2,2,2'
-      }
+        num: "",
+        detail: "",
+        specs: "",
+
+        picCodes: "2,2,2",
+        resource: 0
+      },
+      isuploads: false,
+      checkimgs: []
     };
   },
-  computed:{
-    change(){
-      return this.region = this.$store.state.selectData
-    }
-  },
-  methods:{
-    /*
-    *提交商品信息
-    */
-    onSubmit(){
-      var that = this.form
-      console.log(that,this.$store.state.selectData)
-      this.axios.post('/goods/storage',{
-
-
-          goodsTotal:that.num,
-          goodsColor:that.color,
-          goodsName:that.name,
-          goodsPrice:that.price,
-          goodsDetail:that.detail,
-          goodsSpecs:that.specs,
-          goodsTypeId:that.region,
-          adminPicIds:that.adminPicIds,
-          picCodes:that.picCodes
-
-      })
-      .then((res) => {
-        console.log('请求成功',res)
-        console.log(that.name)
-      })
-      .catch((err) => {
-        console.log('请求失败',err,)
-      })
+  computed: {
+    change() {
+      return this.$store.state.selectData;
     },
-    getimgs(){
-      this.axios.get('/goods/adminPic')
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
-    
- 
-  },
+    changecheckimgs() {
+      return this.$store.state.checkimgs;
+    },
+    imagescode() {
+      let long = this.$store.state.checkimgs.map((el, i) => {
+        return 2;
+      });
 
+      return long.join(",");
+    },
+    selectData() {
+      return this.$store.state.selectData;
+    }
+  },
+  methods: {
+    /*
+     *提交商品信息
+     */
+    onSubmit() {
+      var that = this.form,
+        imgs = this.changecheckimgs.join(","),
+        // code = imgs.length;
+        slect = this.selectData,
+        code = this.imagescode;
+      console.log(that, this.$store.state.selectData);
+      this.axios
+        .post("/goods/storage", {
+          goodsTotal: that.num,
+          goodsColor: that.color,
+          goodsName: that.name,
+          goodsPrice: that.price,
+          goodsDetail: that.detail,
+          goodsSpecs: that.specs,
+          goodsTypeId: slect,
+          adminPicIds: imgs,
+          picCodes: code,
+          goodsGroundingStatus: that.resource
+        })
+        .then(res => {
+          console.log("请求成功", res);
+          console.log(that.name);
+          // if (res.state == 200) {
+          this.$message({
+            message: res.data.message,
+            type: "success"
+          });
+          // }
+        })
+        .catch(err => {
+          console.log("请求失败", err);
+        });
+    },
+
+    uploadimg() {
+      //  console.log(this.isuploads);
+      this.$store.commit("changeisuploads", true);
+      // this.changeisuploads = true;
+      // console.log(this.isuploads);
+    }
+  }
 };
 </script>
 

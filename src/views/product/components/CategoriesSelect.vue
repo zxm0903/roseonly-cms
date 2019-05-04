@@ -1,12 +1,6 @@
 <template>
   <div id="categories-select">
-    <el-cascader
-      :options="options"
-      @change="option"
-
-      change-on-select
-      filterable
-    ></el-cascader>
+    <el-cascader :options="options" @change="option" change-on-select filterable></el-cascader>
   </div>
 </template>
 <script>
@@ -14,10 +8,7 @@ export default {
   name: "categories-select",
   data() {
     return {
-      options: [
-        
-      ],
-
+      options: []
     };
   },
 
@@ -25,7 +16,10 @@ export default {
     option(val) {
       console.log(val);
       // this.selectData = val[val.length - 1]
-      this.$store.commit({type:'changeSelectData',amount:val[val.length - 1]})
+      this.$store.commit({
+        type: "changeSelectData",
+        amount: val[val.length - 1]
+      });
       console.log(this.$store.state.selectData);
     }
   },
@@ -38,7 +32,7 @@ export default {
         let classlist = res.data.data;
         let list = [];
         classlist.map((e, i) => {
-           console.log(e,i)
+          console.log(e, i);
           list.push({
             value: e.goodsTypeId,
             label: e.goodsTypeName,
@@ -52,6 +46,11 @@ export default {
       })
       .catch(err => {
         console.log("请求失败", err);
+        that.$message({
+          showClose: true,
+          message: '服务请求错误',
+          type: 'warning'
+        });
       });
 
     function DataToTree(data) {
