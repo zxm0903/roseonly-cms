@@ -2,11 +2,11 @@
   <div id="upload">
     <el-upload
       ref="upload"
-      action="http://172.16.7.81:8080/goods/picture/upload"
+      action="http://172.16.7.76:8080/goods/picture/upload"
 
       drag
       class="upload-demo"
-      show-file-list="false"
+      :show-file-list="false"
       :on-success="imgres"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove"

@@ -2,7 +2,7 @@
   <div id="addproduct">
     <el-row :gutter="10">
       <el-col :xs="24" :sm="8">
-        <el-form label-position="left" ref="form" :model="form" label-width="80px">
+        <el-form label-position="left" :rules="rules" ref="form" :model="form" label-width="80px">
           <el-form-item label="产品名称">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
@@ -39,7 +39,7 @@
       <el-col :xs="24" :sm="16">
         <!-- <h3>添加商品图片</h3> -->
         <el-button @click="uploadimg" type="primary">
-          添加图片
+          添加商品展示图片
           <i class="el-icon-upload el-icon--right"></i>
         </el-button>
         <el-col
@@ -52,12 +52,15 @@
           :offset="index > 0 ? 0 : 0"
         >
           <!-- <el-checkbox-button class="check-btn" :label="o"> -->
-            <el-card class="card-box" :body-style="{ padding: '0px' }">
-              <img :src="'http://172.16.7.81:8080/' + o.adminPicFileUrl" class="image">
-            </el-card>
+          <el-card class="card-box" :body-style="{ padding: '0px' }">
+            <img :src="'http://172.16.7.76:8080/' + o.adminPicFileUrl" class="image">
+          </el-card>
           <!-- </el-checkbox-button> -->
         </el-col>
-
+        <!-- <el-button @click="updetailimg" type="primary">
+          添加商品详情图片
+          <i class="el-icon-upload el-icon--right"></i>
+        </el-button> -->
         <!-- <span>{{changecheckimgs}}{{form.adminPicIds}}</span> -->
       </el-col>
     </el-row>
@@ -78,15 +81,37 @@ export default {
     return {
       form: {
         name: "",
-        region: this.selectData,
+
         color: "",
         price: "",
         num: "",
         detail: "",
         specs: "",
-
-        picCodes: "2,2,2",
         resource: 0
+      },
+
+      rules: {
+        name: [
+          { required: true, message: "请输入产品名称", trigger: "blur" },
+          { min: 1, max: 15, message: "长度在 1 到 15 个字符", trigger: "blur" }
+        ],
+        // region: [
+        //   { required: true, message: "请选择活动区域", trigger: "change" }
+        // ],
+        color: { required: true, message: "请输入产品名称", trigger: "blur" },
+
+        price: [
+          { required: true, message: "产品价格不能为空" },
+          { type: "number", message: "必须为数字值" }
+        ],
+        num: [
+          { required: true, message: "产品库存不能为空" },
+          { type: "number", message: "必须为数字值" }
+        ],
+        resource: [
+          { required: true, message: "是否上下架", trigger: "change" }
+        ],
+        specs: [{ required: true, message: "请填产品详情", trigger: "blur" }]
       },
       isuploads: false,
       checkimgs: []
@@ -108,6 +133,9 @@ export default {
     },
     selectData() {
       return this.$store.state.selectData;
+    },
+    isimg(){
+      return this.$store.state.isimg
     }
   },
   methods: {
@@ -116,7 +144,9 @@ export default {
      */
     onSubmit() {
       var that = this.form,
-        imgs = this.changecheckimgs.join(","),
+        imgs = this.changecheckimgs.map((el, i) => {
+          return el.adminPicId;
+        }),
         // code = imgs.length;
         slect = this.selectData,
         code = this.imagescode;
@@ -130,7 +160,7 @@ export default {
           goodsDetail: that.detail,
           goodsSpecs: that.specs,
           goodsTypeId: slect,
-          adminPicIds: imgs,
+          adminPicIds: imgs.join(","),
           picCodes: code,
           goodsGroundingStatus: that.resource
         })
@@ -151,9 +181,14 @@ export default {
 
     uploadimg() {
       //  console.log(this.isuploads);
+      this.$store.commit('changeisimg',1)
       this.$store.commit("changeisuploads", true);
       // this.changeisuploads = true;
       // console.log(this.isuploads);
+    },
+    updetailimg(){
+      this.$store.commit('changeisimg',2)
+      this.$store.commit("changeisuploads", true);
     }
   }
 };

@@ -1,12 +1,10 @@
 <template>
   <div id="productmanagement">
-    <CateoriesSelect></CateoriesSelect>
+    <!-- <CateoriesSelect></CateoriesSelect> -->
+    <el-button @click="getallgoods">全部商品</el-button>
     <el-button @click="shanglist">已上架</el-button>
     <el-button @click="xialist">已下架</el-button>
-    <el-table
-      :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-      style="width: 100%"
-    >
+    <el-table :data="tableData" style="width: 100%">
       <el-table-column type="selection" width="30"></el-table-column>
       <el-table-column label="录入时间" prop="createTime"></el-table-column>
       <el-table-column label="产品名称" prop="goodsName"></el-table-column>
@@ -36,7 +34,7 @@
       </el-table-column>
       <el-table-column align="right">
         <template slot="header">
-          <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>
+          <el-input v-model="searchs" size="mini" placeholder="输入关键字搜索"/>
         </template>
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑产品</el-button>
@@ -84,6 +82,7 @@ export default {
   methods: {
     handleEdit(row) {
       console.log(row);
+      this.$store.commit("changeiseditgoods", true);
       this.isedit = {
         bool: true,
         row: row
@@ -195,11 +194,44 @@ export default {
         })
         .then(res => {
           console.log("请求成功", res);
-          that.tableData = res.data.data.data || [];
-          that.pageTotal = res.data.data.count || 0;
+          if (res.data == "") {
+            that.tableData = [];
+            that.pageTotal = 0;
+          } else {
+            that.tableData = res.data.data.data || [];
+            that.pageTotal = res.data.data.count || 0;
+          }
         })
         .catch(err => {
           console.log("请求失败", err);
+          that.$message({
+            showClose: true,
+            message: "无已下架数据",
+            type: "warning"
+          });
+        });
+    },
+    getallgoods() {
+      let that = this;
+      this.axios
+        .get("/goods/search/all/list", {
+          params: {
+            pageNo: 1,
+            pageSize: that.pageSize
+          }
+        })
+        .then(res => {
+          console.log("请求成功", res);
+          that.tableData = res.data.data.data;
+          that.pageTotal = res.data.data.count;
+        })
+        .catch(err => {
+          console.log("请求失败", err);
+          that.$message({
+            showClose: true,
+            message: "服务请求错误",
+            type: "warning"
+          });
         });
     }
   },
@@ -219,10 +251,10 @@ export default {
       })
       .catch(err => {
         console.log("请求失败", err);
-         that.$message({
+        that.$message({
           showClose: true,
-          message: '服务请求错误',
-          type: 'warning'
+          message: "服务请求错误",
+          type: "warning"
         });
       });
   }

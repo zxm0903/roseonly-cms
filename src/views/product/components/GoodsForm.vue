@@ -32,8 +32,8 @@
             <!-- <el-button>取消</el-button> -->
           </el-form-item>
           <!-- <el-form-item v-if="location == '/productmanagement'">
-            <el-button type="primary" @click="onEdit">edit</el-button> -->
-            <!-- <el-button>取消</el-button> -->
+          <el-button type="primary" @click="onEdit">edit</el-button>-->
+          <!-- <el-button>取消</el-button> -->
           <!-- </el-form-item> -->
         </el-form>
       </el-col>
@@ -58,12 +58,10 @@ export default {
       form: {}
     };
   },
-  props:[
-    'row'
-  ],
-  computed:{
-    change:function(){
-      return this.form = this.row
+  props: ["row"],
+  computed: {
+    change: function() {
+      return (this.form = this.row);
     }
   },
   methods: {
@@ -71,31 +69,38 @@ export default {
      *提交商品信息
      */
     onSubmit(id) {
-      var that = this.row;//假的
-      console.log(id,that);
+      var that = this.row; //假的
+      console.log(id, that);
       this.axios
-        .post("/goods/"+ id +"/update", {
-          adminId:1,
+        .post("/goods/" + id + "/update", {
+          adminId: 1,
           goodsTotal: that.goodsTotal,
           goodsColor: that.goodsColor,
           goodsName: that.goodsName,
           goodsPrice: that.goodsPrice,
           goodsDetail: that.goodsDetail,
           goodsSpecs: that.goodsSpecs,
-          goodsTypeId: this.$store.state.selectData,
-          
+          goodsTypeId: this.$store.state.selectData
         })
         .then(res => {
           console.log("请求成功", res);
           console.log(that.name);
+          if (res.data.code == 200) {
+            
+            this.$message({
+              message: res.data.message,
+              type: "success"
+            });
+          }
         })
         .catch(err => {
           console.log("请求失败", err);
         });
+        this.$store.commit('changeiseditgoods',false)
     },
     onEdit(row) {
       console.log(row);
-    //   let that = this;
+      //   let that = this;
       this.axios
         .post("/goods/list/delete", {
           goodsId: row.goodsId
