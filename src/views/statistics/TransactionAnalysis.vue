@@ -2,11 +2,11 @@
   <div id="transactionAnalysis">
     <div class="choose date clear">
       <div class="left">
-        <span>快速查看</span>
+        <span>快速查看</span> 
         <input type="button" value="今日" @click="getToday">
         <input type="button" value="昨日" @click="getYearstoday">
-        <input type="button" value="最近7日" @click="getSeven">
-        <input type="button" value="本月" @click="getMonth">
+        <input type="button"  value="最近7日" autofocus='ture'  @click="getSeven">
+        <input type="button" value="最近30天" @click="getMonth">
       </div>
       <div class="right">
         <span style="margin-right:15px">选择日期</span>
@@ -66,6 +66,11 @@ export default {
   },
   methods: {
     getToday() {
+      // 该页面的数据
+      // this.payMoney = res.data....
+      // this.payOrder = res.data...
+      // this.payBuyer = res.data...
+      // this.payGoodsCount = res.data...
       var that = this;
       // 计算时间戳
       var timetamp = new Date().getTime();
@@ -142,6 +147,11 @@ export default {
       });
     },
     getYearstoday() {
+      // 该页面的数据
+      // this.payMoney = res.data....
+      // this.payOrder = res.data...
+      // this.payBuyer = res.data...
+      // this.payGoodsCount = res.data...
       var that = this;
       // 计算时间戳
       var timetamp = new Date().getTime();
@@ -231,6 +241,11 @@ export default {
       });
     },
     getSeven() {
+      // 该页面的数据
+      // this.payMoney = res.data....
+      // this.payOrder = res.data...
+      // this.payBuyer = res.data...
+      // this.payGoodsCount = res.data...
       var that = this;
       // 计算时间戳
       var timetamp = new Date().getTime();
@@ -320,6 +335,11 @@ export default {
       });
     },
     getMonth() {
+      // 该页面的数据
+      // this.payMoney = res.data....
+      // this.payOrder = res.data...
+      // this.payBuyer = res.data...
+      // this.payGoodsCount = res.data...
       var that = this;
       // 计算时间戳
       var timetamp = new Date().getTime();
@@ -409,6 +429,11 @@ export default {
       });
     },
     change() {
+      // 该页面的数据
+      // this.payMoney = res.data....
+      // this.payOrder = res.data...
+      // this.payBuyer = res.data...
+      // this.payGoodsCount = res.data...
       var that = this;
       var value = this.value;
       console.log(value[0]);
@@ -524,6 +549,9 @@ export default {
         ]
       });
     }
+  },
+  created() {
+    this.getSeven();
   }
 };
 </script>
@@ -557,7 +585,7 @@ export default {
   padding: 5px;
   border-radius: 3px;
 }
-.left > input:hover {
+.left > input:hover{
   background: rgb(146, 144, 144);
   cursor: pointer;
 }
@@ -577,4 +605,5 @@ export default {
 .detail > * {
   margin: 15px;
 }
+
 </style>

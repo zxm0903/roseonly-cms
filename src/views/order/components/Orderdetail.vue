@@ -34,7 +34,7 @@
           <tr v-for="(item,index) in isdetail.row.trolleys" :key="index">
             <td>
               <div>
-                <img :src="'http://172.16.7.76:8080/' + item.goods.pictures[0].picFileUrl" alt>
+                <img :src="'http://172.16.7.76:8080/' + item.goods.pictures[0].picFileUrl" >
                 <span v-text="item.goods.pictures[0].picName"></span>
               </div>
             </td>
@@ -47,22 +47,18 @@
             </td>
             <td>
               <span>￥</span>
-              <span v-text="item.goods.goodsPrice*item.goodsNum"></span>
+              <span v-text="item.totalPrice"></span>
             </td>
           </tr>
         </table>
         <div class="messege3_1">
-          <div>
+          <div class="total_">
             <p>
               商品总额
               <span>￥</span>
-              <span v-text="isdetail.row.trolleys.totalPrice"></span>
+              <span v-text="isdetail.row.orderDetailTotalPrice"></span>
             </p>
-            <p>
-              优惠金额
-              <span>￥</span>
-              <span v-text="privilege"></span>
-            </p>
+           
             <p>
               运费
               <span>￥</span>
@@ -102,10 +98,9 @@ export default {
 
       // 总价
       priseAll: "",
-      // 优惠金额
-      privilege: "",
+  
       // 运费
-      sendMoney: ""
+      sendMoney: 0
     };
   },
   props: ["isdetail"], 
@@ -165,5 +160,8 @@ img{
   width: 80px;
   height: 80px;
   vertical-align: middle;
+}
+.total_{
+  text-align: left;
 }
 </style>

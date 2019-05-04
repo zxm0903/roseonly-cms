@@ -47,7 +47,7 @@
     <template>
       <el-table
         :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-        style="width: 100%"
+        style="width: 80%"
       >
         <el-table-column label="名称" prop="name"></el-table-column>
         <el-table-column label="浏览量" prop="pageView"></el-table-column>
@@ -55,9 +55,9 @@
           <template slot="header">
             <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>
           </template>
-          <template slot-scope="scope">
+          <!-- <template slot-scope="scope">
             <el-button size="mini" class="btn" @click="look(scope.$index, scope.row)">查看</el-button>
-          </template>
+          </template>-->
         </el-table-column>
       </el-table>
     </template>
@@ -79,6 +79,7 @@
 export default {
   data() {
     return {
+      val:"",
       value: "",
       payMoney: 0,
       payOrder: 0,
@@ -257,13 +258,10 @@ export default {
           console.log(error);
         });
     },
-    look(index, row) {
-      console.log(index, row);
-    },
-    currentChange() {
+    currentChange(val) {
       var that = this;
       this.axios
-        .get("/goods/search/all/list", {
+        .get("/shoppingmall/goods/statistics/specific", {
           params: {
             pageNo: val,
             pageSize: that.pageSize
@@ -275,9 +273,12 @@ export default {
           that.pageTotal = res.data.data.count;
         })
         .catch(error => {
-          console.log("请求失败", err);
+          console.log("请求失败", error);
         });
     }
+  },
+  created() {
+   this.getSeven();
   }
 };
 </script>
