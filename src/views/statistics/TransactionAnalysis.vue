@@ -224,8 +224,8 @@ export default {
       this.axios
         .get("/shoppingmall/survey/senven", {
           params: {
-            screeningStartTime: that.endTime,
-            screeningEndTime: that.startTime
+            screeningStartTime: that.startTime,
+            screeningEndTime: that.endTime
           }
         })
         .then(res => {
