@@ -132,6 +132,9 @@ export default {
         })
         .then(res => {
           console.log(res);
+           if(res.data.code == 200){
+            location.reload()
+          }
         });
     },
     tuihuo(row) {
@@ -144,6 +147,9 @@ export default {
         })
         .then(res => {
           console.log(res);
+          if(res.data.code == 200){
+            location.reload()
+          }
         });
     },
     currentChange(val) {

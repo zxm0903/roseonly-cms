@@ -41,12 +41,17 @@ export default {
 
     },
     consign(id){
+      this.dialog.bool = false
       let that = this
       this.axios.post('/orders/delivery/'+ id,{
         admin:1
       })
       .then(res => {
         console.log(res)
+        
+         if(res.data.code == 200){
+            location.reload()
+          }
       })
     }
   }
