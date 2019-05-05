@@ -54,8 +54,7 @@ export default {
       payOrder: 0,
       payBuyer: 0,
       payGoodsCount: 0,
-      xval: [],
-      yval: [],
+     
       startTime: "",
       endTime: ""
     };
@@ -117,7 +116,7 @@ export default {
 
           // 处理从数据库获取的时间及数据 并给data赋值
           that.xval = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24];
-          that.yval = [0, 0, 0, 0, 0, 0, 300, that.payMoney - 300];
+          that.yval = [0, 0, 0, 0, 0, 0, 0, that.payMoney];
           that.drawLine();
         })
         .catch(error => {
@@ -220,8 +219,8 @@ export default {
       this.axios
         .get("/shoppingmall/survey/senven", {
           params: {
-            screeningStartTime: that.endTime,
-            screeningEndTime: that.startTime
+            screeningStartTime: that.startTime,
+            screeningEndTime: that.endTime
           }
         })
         .then(res => {
@@ -385,7 +384,9 @@ export default {
     }
   },
   created() {
+
     this.getSeven();
+     drawLine()
   }
 };
 </script>

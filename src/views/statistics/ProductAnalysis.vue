@@ -53,7 +53,7 @@
         <el-table-column label="浏览量" prop="goodsVisitiedCount"></el-table-column>
         <el-table-column align="right">
           <template slot="header">
-            <el-input v-model="search" size="mini" placeholder="输入关键字搜索"/>
+            <el-input v-model="search" size="mini" placeholder="输入关键字搜索" @click="search"/>
           </template>
           <!-- <template slot-scope="scope">
             <el-button size="mini" class="btn" @click="look(scope.$index, scope.row)">查看</el-button>
@@ -178,11 +178,7 @@ export default {
           this.payOrder = res.data.data.count;
           this.payBuyer = res.data.data.userCount;
 
-
-
-
-
-              // 测试这里，可以的话复制给该页方法
+          // 测试这里，可以的话复制给该页方法
           that.tableData = res.data.data.list;
           for (var i = 0; i < that.tableData.length; i++) {
             that.tableData[i].goodsVisitiedCount =
@@ -254,6 +250,13 @@ export default {
           this.payOrder = res.data.data.count;
           this.payBuyer = res.data.data.userCount;
           this.payGoodsCount = res.data.data.goodsNumCount;
+
+           that.tableData = res.data.data.list;
+          for (var i = 0; i < that.tableData.length; i++) {
+            that.tableData[i].goodsVisitiedCount =
+              res.data.data.goodsVisitiedCount;
+              }
+
         })
         .catch(error => {
           console.log(error);
@@ -296,6 +299,13 @@ export default {
           this.payOrder = res.data.data.count;
           this.payBuyer = res.data.data.userCount;
           this.payGoodsCount = res.data.data.goodsNumCount;
+
+         that.tableData = res.data.data.list;
+          for (var i = 0; i < that.tableData.length; i++) {
+            that.tableData[i].goodsVisitiedCount =
+              res.data.data.goodsVisitiedCount;
+              }
+
 
 
         })
@@ -366,6 +376,14 @@ export default {
           this.payOrder = res.data.data.count;
           this.payBuyer = res.data.data.userCount;
           this.payGoodsCount = res.data.data.goodsNumCount;
+
+          
+           that.tableData = res.data.data.list;
+          for (var i = 0; i < that.tableData.length; i++) {
+            that.tableData[i].goodsVisitiedCount =
+              res.data.data.goodsVisitiedCount;
+              }
+
          
         })
         .catch(error => {
@@ -375,20 +393,32 @@ export default {
     currentChange(val) {
       var that = this;
       this.axios
-        .get("/shoppingmall/goods/statistics/specific", {
+        .get("/shoppingmall/goods/statistics/selectBygoodsName", {
           params: {
             pageNo: val,
-            pageSize: that.pageSize
+            pageSize: that.pageSize,
+          
           }
         })
         .then(res => {
           console.log("请求成功", res);
-          that.tableData = res.data.data.data;
-          that.pageTotal = res.data.data.count;
+          // that.tableData = res.data.data.data;
+          // that.pageTotal = res.data.data.count;
         })
         .catch(error => {
           console.log("请求失败", error);
         });
+    },
+    search(){
+      var that = this;
+
+      that.axios.get(
+       " /shoppingmall/goods/statistics/selectBygoodsName",{params:{
+          goodsName:that.search
+        }}
+      ).then(res=>{
+        console.log(res)
+      })
     }
   },
   created() {

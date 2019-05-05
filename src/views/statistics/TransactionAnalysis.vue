@@ -55,8 +55,7 @@ export default {
       payOrder: 0,
       payBuyer: 0,
       payGoodsCount: 0,
-      xval: [],
-      yval: [],
+     
       startTime: "",
       endTime: "",
       // 访客
@@ -106,7 +105,7 @@ export default {
       // 给data里的开始时间赋值
       that.startTime = startTime;
       this.axios
-        .get("/shoppingmall/transaction/analysis/senven", {
+        .get("/shoppingmall/survey/senven", {
           params: {
             screeningStartTime: that.startTime,
             screeningEndTime: new Date().format("yyyy-MM-dd hh:mm:ss")
@@ -121,9 +120,9 @@ export default {
           this.payGoodsCount = res.data.data.goodsNumCount;
 
           // 处理从数据库获取的时间及数据 并给data赋值
-          //  that.payMoney = res.data.data...
-          // that.xiadanPeople = res.data.data....
-          // that.visitPeople  = res.data.data...
+          that.pay_Money = res.data.data.totalPrice;
+          that.xiadanPeople = res.data.data.userCount;
+          that.visitPeople  = res.data.data.visitedCount;
           that.drawLine();
         })
         .catch(error => {
@@ -174,7 +173,7 @@ export default {
       that.endTime = endTime;
 
       this.axios
-        .get("/shoppingmall/transaction/analysis/senven", {
+        .get("/shoppingmall/survey/senven", {
           params: {
             screeningStartTime: that.startTime,
             screeningEndTime: that.endTime
@@ -189,10 +188,12 @@ export default {
           this.payGoodsCount = res.data.data.goodsNumCount;
 
           // 处理从数据库获取的时间及数据 并给data赋值
-          //  that.payMoney = res.data.data...
-          // that.xiadanPeople = res.data.data....
-          // that.visitPeople  = res.data.data...
+         
+           that.pay_Money = res.data.data.totalPrice;
+          that.xiadanPeople = res.data.data.userCount;
+          that.visitPeople  = res.data.data.visitedCount;
           that.drawLine();
+          
         })
         .catch(error => {
           console.log(error);
@@ -237,9 +238,9 @@ export default {
           this.payGoodsCount = res.data.data.goodsNumCount;
 
           // 处理从数据库获取的时间及数据 并给data赋值
-          //  that.payMoney = res.data.data...
-          // that.xiadanPeople = res.data.data....
-          // that.visitPeople  = res.data.data...
+           that.pay_Money = res.data.data.totalPrice;
+          that.xiadanPeople = res.data.data.userCount;
+          that.visitPeople  = res.data.data.visitedCount;
           that.drawLine();
         })
         .catch(error => {
@@ -284,10 +285,10 @@ export default {
           this.payBuyer = res.data.data.userCount;
           this.payGoodsCount = res.data.data.goodsNumCount;
 
-          // 处理从数据库获取的时间及数据 并给data赋值
-          //  that.payMoney = res.data.data...
-          // that.xiadanPeople = res.data.data....
-          // that.visitPeople  = res.data.data...
+         // 处理从数据库获取的时间及数据 并给data赋值
+          that.pay_Money = res.data.data.totalPrice;
+          that.xiadanPeople = res.data.data.userCount;
+          that.visitPeople  = res.data.data.visitedCount;
           that.drawLine();
         })
         .catch(error => {
@@ -321,10 +322,10 @@ export default {
           this.payBuyer = res.data.data.userCount;
           this.payGoodsCount = res.data.data.goodsNumCount;
 
-          // 处理从数据库获取的时间及数据 并给data赋值
-          //  that.payMoney = res.data.data...
-          // that.xiadanPeople = res.data.data....
-          // that.visitPeople  = res.data.data...
+           // 处理从数据库获取的时间及数据 并给data赋值
+           that.pay_Money = res.data.data.totalPrice;
+          that.xiadanPeople = res.data.data.userCount;
+          that.visitPeople  = res.data.data.visitedCount;
           that.drawLine();
         })
         .catch(error => {
@@ -332,6 +333,7 @@ export default {
         });
     },
     drawLine() {
+      var that = this;
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart"));
       // 绘制图表
@@ -381,13 +383,14 @@ export default {
             },
             data: [
               { value: that.visitPeople, name: "访客" },
-              { value: taht.xiadanPeople, name: "下单" },
-              { value: that.payMoney, name: "付款" }
+              { value: that.xiadanPeople, name: "下单" },
+              { value: that.pay_Money, name: "付款" }
             ]
           }
         ]
       });
-    }
+    },
+   
   },
   created() {
     this.getSeven();
